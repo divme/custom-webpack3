@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ve-pie :data="chartData"></ve-pie>
+        <ve-pie :data="chartData" width='90%' :legend-visible="legendVisible"></ve-pie>
         <ul class="list">
             <li class="li li-title">
                 <span class="name">部门</span>
@@ -17,6 +17,8 @@
                 <span class="income"></span>
                 <span class="grate">45.32%</span>
             </li>
+
+
             <li class="li">
                 <span class="name">融资融券部</span>
                 <span class="income"></span>
@@ -45,6 +47,7 @@
 
     export default {
         data () {
+            this.legendVisible = false;
             this.chartSettings = {
                 labelMap: {
                     Order: '下单用户'
@@ -68,9 +71,14 @@
 </script>
 <style scoped>
     @import "../utils/reset.css";
+    .ve-pie{
+        width: 90%;
+        margin:10px auto;
+    }
     .li{
         height: 40px;
         line-height: 40px;
+        padding: 0 12px;
         border-bottom:  1px solid #dedede;
     }
 </style>

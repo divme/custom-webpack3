@@ -12,5 +12,6 @@ const router = new VueRouter({
 });
 
 new Vue({
+    el: '#main',
     router
-}).$mount('#main');
+});
