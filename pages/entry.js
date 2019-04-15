@@ -6,8 +6,9 @@ import Vcharts from 'v-charts'
 
 Vue.use(Vcharts);
 Vue.use(VueRouter);
+
 const router = new VueRouter({
-    mode:"history",
+    // mode:"history",
     routes
 });
 
