@@ -6,6 +6,7 @@ import VeScatter from  'pages/page/vechartScatter.vue'
 import VeMap from  'pages/page/vechartMap.vue'
 
 import Finance from  'pages/cockpit/finance.vue'
+import Performance from  'pages/cockpit/performance.vue'
 
 export default [
     { path:'/', component: Home},
@@ -15,5 +16,6 @@ export default [
     { path:'/vescatter', component: VeScatter},
     { path:'/vemap', component: VeMap},
 
-    { path:'/finance', component: Finance}
+    { path:'/finance', component: Finance},
+    { path:'/performance', component: Performance}
 ]

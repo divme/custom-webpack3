@@ -60,3 +60,8 @@ body{font-family:"Helvetica Neue",'微软雅黑', Verdana, Arial, Helvetica, san
     .left{float: left;}
     .right{float:right;}
 }
+
+
+body{
+    background: #f7f7f7;
+}

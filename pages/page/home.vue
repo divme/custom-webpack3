@@ -6,7 +6,8 @@
 		<router-link to="/veline">go to vechartLine</router-link>
 		<router-link to="/vescatter">go to vechartScatter</router-link>
 		<router-link to="/vemap">go to vechartMap</router-link>
-		<router-link to="/finance">财务绩效分析</router-link>
+		<router-link to="/finance">2015年部门绩效收入</router-link>
+		<router-link to="/performance">2015年财务分析</router-link>
 		<router-view></router-view>
 	</div>
 </template>
