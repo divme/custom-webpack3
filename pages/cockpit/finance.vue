@@ -1,9 +1,10 @@
 <template>
     <div>
         <div class="title-box">
-            <span class="title">2015年部门绩效收入</span>
+            <span class="title">2015年财务分析</span>
+            <span class="subtitle">单位：万亿元</span>
         </div>
-        <ve-pie
+        <ve-histogram
                 width='100%'
                 height="300px"
                 :settings = "chartSettings"
@@ -12,8 +13,9 @@
 
 
                 :after-config="afterConfig"
+                :before-config="beforeConfig"
         >
-        </ve-pie>
+        </ve-histogram>
         <div class="list">
             <ul class="list-name">
                 <li class="li li-title">
@@ -100,9 +102,15 @@
 <script>
     export default {
         data () {
+            this.title = {
+                text: 'I am title'
+            };
+
             this.chartExtend = {
+                color: ['#5eb8c0', '#92cddd', '#05c9dd', '#01c082', '#fdd006', '#fd8001', '#ff4648', '#466177'],
                 series:{
-                    // radius: 120
+                    radius: 110,
+                    center: ['50%', 140]
                 }
             };
             this.chartSettings = {
@@ -118,11 +126,21 @@
                     }
                 },
                 label:{
-                    formatter: "{s1|{b}}:{d}%",
+                    formatter: function(params){
+                        var str = params.name + ':\n'+ params.percent +'%';
+                        if(params.percent < 12){
+                            str = ''
+                        }
+
+                        return str
+                    },
+                    height: 10,
+                    lineHeight: 20,
+                    align: 'left',
+                    verticalAlign: 'bottom',
                     rich:{
                         s1:{
-                            width: '50%',
-                            height: 60,
+                            width: '80%',
                             lineHeight: 30,
                             color:'#ea3939'
                         }
@@ -130,6 +148,7 @@
                 },
 
                 labelMap: {
+
                     Order: '下单用户'
                 }
             };
@@ -137,20 +156,29 @@
                 chartData: {
                     columns: ['名称',  'Order'],
                     rows: [
-                        { '名称': '经纪业务线', 'Order': 2793 },
-                        { '名称': '融资融券部', 'Order': 530 },
-                        { '名称': '投资银行总部', 'Order': 623 },
-                        { '名称': '债券投资部', 'Order': 323 },
-                        { '名称': '衍生品部', 'Order': 492 },
-                        { '名称': '研究结构线', 'Order': 193 }
+                        { '总收入': '经纪业务线', 'Order': 1156347.45, label:{
+                            show: false
+                            }},
+                        { '总支出': '融资融券部', 'Order': 338705.14 },
+                        { '总利润': '投资银行总部', 'Order': 95051.87 }
                     ]
                 }
             }
         },
         methods: {
+            beforeConfig(data){
+                // debugger;
+                // data.chartExtend.series.radius = 120;
+            },
             afterConfig (options) {
-                options.series[0].minShowLabelAngle = 300;
-                debugger;
+                // options.color = ['#5eb8c0', '#92cddd', '#05c9dd', '#01c082', '#fdd006', '#fd8001', '#ff4648', '#466177'];
+                // options.series[0].minShowLabelAngle = 300;
+                // options.series[0].minAngle = 10;
+                // options.series[0].data[0].label = {
+                //     show: true,
+                //     position: 'inner'
+                // };
+                // debugger;
                 return options
             }
         }
