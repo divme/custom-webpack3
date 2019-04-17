@@ -6,95 +6,23 @@
         </div>
         <ve-histogram
                 width='100%'
-                height="300px"
+                height="420px"
                 :settings = "chartSettings"
                 :extend="chartExtend"
                 :data="chartData"
 
+                :after-config = 'afterConfig'
+                :after-set-option = 'afterSetOption'
 
-                :after-config="afterConfig"
-                :before-config="beforeConfig"
         >
         </ve-histogram>
-        <div class="list">
-            <ul class="list-name">
-                <li class="li li-title">
-                    <span class="name">部门</span>
-                </li>
-                <li class="li">
-                    <span class="name">经纪业务线</span>
-                </li>
-                <li class="li">
-                    <span class="name">投资银行总部</span>
-                </li>
-
-
-                <li class="li">
-                    <span class="name">融资融券部</span>
-                </li>
-                <li class="li">
-                    <span class="name">债券投资部</span>
-                </li>
-                <li class="li">
-                    <span class="name">衍生品部</span>
-                </li>
-                <li class="li">
-                    <span class="name">研究结构线</span>
-                </li>
-            </ul>
-            <ul class="list-income">
-                <li class="li li-title">
-
-                    <span class="income">收入（万元）</span>
-
-                </li>
-                <li class="li">
-
-                    <span class="income">111</span>
-                </li>
-                <li class="li">
-                    <span class="income">333</span>
-                </li>
-
-
-                <li class="li">
-                    <span class="income">32131</span>
-                </li>
-                <li class="li">
-                    <span class="income">456</span>
-                </li>
-                <li class="li">
-                    <span class="income">762</span>
-                </li>
-                <li class="li">
-                    <span class="income">846</span>
-                </li>
-            </ul>
-            <ul class="list-grate">
-                <li class="li li-title">
-                    <span class="grate">12%</span>
-                </li>
-                <li class="li">
-                    <span class="grate">5.6%</span>
-                </li>
-                <li class="li">
-                    <span class="grate">45.32%</span>
-                </li>
-
-
-                <li class="li">
-                    <span class="grate">23.2%</span>
-                </li>
-                <li class="li">
-                    <span class="grate">25%</span>
-                </li>
-                <li class="li">
-                    <span class="grate">65%</span>
-                </li>
-                <li class="li">
-                    <span class="grate">12.25%</span>
-                </li>
-            </ul>
+        <div class="info-box">
+            <div class="info-title">
+                财务指标
+            </div>
+            <div class="info-content">
+                净利润：2082.37万亿元、总支出2051.84万亿元、总收入：4764.76万亿元，分别比上年末增长209.6%、108.94%和161.31%。
+            </div>
         </div>
 
     </div>
@@ -102,84 +30,61 @@
 <script>
     export default {
         data () {
-            this.title = {
-                text: 'I am title'
-            };
-
+            this.colors = ['#df5316', '#e67843', '#ffc000'];
             this.chartExtend = {
-                color: ['#5eb8c0', '#92cddd', '#05c9dd', '#01c082', '#fdd006', '#fd8001', '#ff4648', '#466177'],
-                series:{
-                    radius: 110,
-                    center: ['50%', 140]
+                color: ['#df5316', '#e67843', '#ffc000'],
+                legend:{
+                    // show: false
+                },
+                xAxis:{
+                    axisLine:{
+                        show: false
+                    }
+                },
+                yAxis:{
+                    show: false
                 }
             };
             this.chartSettings = {
-                radius: 80,
-                legendLimit: 5,
-                offsetY: 120,
-                labelLine:{
-                    show: true,
-                    length: 0,
-                    length2: 5,
-                    lineStyle:{
-                        color: '#fff'
-                    }
-                },
-                label:{
-                    formatter: function(params){
-                        var str = params.name + ':\n'+ params.percent +'%';
-                        if(params.percent < 12){
-                            str = ''
-                        }
-
-                        return str
-                    },
-                    height: 10,
-                    lineHeight: 20,
-                    align: 'left',
-                    verticalAlign: 'bottom',
-                    rich:{
-                        s1:{
-                            width: '80%',
-                            lineHeight: 30,
-                            color:'#ea3939'
-                        }
-                    }
-                },
-
                 labelMap: {
-
+                    Name: '名称',
                     Order: '下单用户'
                 }
             };
             return {
                 chartData: {
-                    columns: ['名称',  'Order'],
+                    columns: ['Name',  'Order'],
                     rows: [
-                        { '总收入': '经纪业务线', 'Order': 1156347.45, label:{
-                            show: false
-                            }},
-                        { '总支出': '融资融券部', 'Order': 338705.14 },
-                        { '总利润': '投资银行总部', 'Order': 95051.87 }
+                        { 'Name': '总收入\n 1156347.45', 'Order': 1156347.45},
+                        { 'Name': '总支出', 'Order': 338705.14 },
+                        { 'Name': '总利润', 'Order': 95051.87 }
                     ]
                 }
             }
         },
         methods: {
-            beforeConfig(data){
-                // debugger;
-                // data.chartExtend.series.radius = 120;
-            },
-            afterConfig (options) {
-                // options.color = ['#5eb8c0', '#92cddd', '#05c9dd', '#01c082', '#fdd006', '#fd8001', '#ff4648', '#466177'];
-                // options.series[0].minShowLabelAngle = 300;
-                // options.series[0].minAngle = 10;
-                // options.series[0].data[0].label = {
-                //     show: true,
-                //     position: 'inner'
-                // };
-                // debugger;
+            afterConfig (options){
+               // debugger;
+                var data = options.series[0].data;
+                for(var i = 0; i < data.length; i++){
+                    var obj = {};
+                    obj.value = data[i];
+                    obj.itemStyle={
+                        color: this.colors[i]
+                    };
+                    data[i] = obj;
+                }
                 return options
+            },
+            afterSetOption (echart){
+                echart.on('legendselectchanged', function(){
+                    alert('I am legendselectchanged')
+                });
+                echart.dispatchAction({
+                    type: 'legendToggleSelect'
+                });
+
+
             }
         }
     }
@@ -195,34 +100,22 @@
         border-bottom: 2px solid #333;
         color: #666;
     }
-    .ve-pie{
-        margin:10px auto;
-        padding: 0 10px;
-        box-sizing: border-box;
+    .subtitle{
+        display: block;
+        margin-top: 15px;
+        line-height: 20px;
+        font-size: 13px;
     }
-    .ve-pie div{
-        width: 100%!important;
+    .info-box{
+        margin-top: 30px;
+        padding: 0 15px;
     }
-    .list{
-        display: flex;
-        justify-content: space-around;
+    .info-title{
+        line-height: 2;
+        font-size: 15px;
     }
-    .list ul{
-        flex: 1 1 auto;
-    }
-    .list-name{
-        min-width: 8em;
-    }
-    .list-income{
-        min-width: 6em;
-    }
-    .list-grate{
-        min-width: 6em;
-    }
-    .li{
-        height: 40px;
-        line-height: 40px;
-        padding: 0 12px;
-        border-bottom:  1px solid #dedede;
+    .info-content{
+        line-height: 1.6;
+        color: #666;
     }
 </style>
