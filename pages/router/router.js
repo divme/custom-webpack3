@@ -7,6 +7,7 @@ import VeMap from  'pages/page/vechartMap.vue'
 
 import Finance from  'pages/cockpit/finance.vue'
 import Performance from  'pages/cockpit/performance.vue'
+import Performance2 from  'pages/cockpit/performance2.vue'
 
 export default [
     { path:'/', component: Home},
@@ -17,5 +18,6 @@ export default [
     { path:'/vemap', component: VeMap},
 
     { path:'/finance', component: Finance},
-    { path:'/performance', component: Performance}
+    { path:'/performance', component: Performance},
+    { path:'/performance2', component: Performance2}
 ]

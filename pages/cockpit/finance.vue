@@ -6,7 +6,7 @@
         </div>
         <ve-histogram
                 width='100%'
-                height="420px"
+                height="360px"
                 :settings = "chartSettings"
                 :extend="chartExtend"
                 :data="chartData"
@@ -32,17 +32,42 @@
         data () {
             this.colors = ['#df5316', '#e67843', '#ffc000'];
             this.chartExtend = {
-                color: ['#df5316', '#e67843', '#ffc000'],
                 legend:{
-                    // show: false
+                    show: false
                 },
                 xAxis:{
                     axisLine:{
                         show: false
+                    },
+                    axisLabel:{
+                        margin: 12,
+                        fontSize: 13,
+                        fontWeight: 'bold',
+                        lineHeight: 20,
+                        // backgroundColor: 'red',
+                        width: 120,
+                        // formatter: '{value}kt',
+                        // formatter: function(val, index){
+                        // },
+                        color: function(val, index){
+                            var colors = ['#df5316', '#e67843', '#ffc000'];
+                            return colors[index];
+                        }
+                    },
+                    rich:{
+                        a:{
+
+                        }
                     }
                 },
                 yAxis:{
-                    show: false
+                    show: false,
+                    axisLabel:{
+                        show: false
+                    },
+                    axisTick:{
+                        show: false
+                    }
                 }
             };
             this.chartSettings = {
@@ -55,16 +80,15 @@
                 chartData: {
                     columns: ['Name',  'Order'],
                     rows: [
-                        { 'Name': '总收入\n 1156347.45', 'Order': 1156347.45},
-                        { 'Name': '总支出', 'Order': 338705.14 },
-                        { 'Name': '总利润', 'Order': 95051.87 }
+                        { 'Name': '总收入\n 1156347.45 \n 161.31%', 'Order': 1156347.45 },
+                        { 'Name': '总支出\n 338705.14 \n 108.94%', 'Order': 338705.14 },
+                        { 'Name': '总利润\n 95051.87 \n 209.6%', 'Order': 95051.87 }
                     ]
                 }
             }
         },
         methods: {
             afterConfig (options){
-               // debugger;
                 var data = options.series[0].data;
                 for(var i = 0; i < data.length; i++){
                     var obj = {};
@@ -74,16 +98,18 @@
                     };
                     data[i] = obj;
                 }
+                options.series[0].barWidth = 50;
+                options.series[0].barCategoryGap = '30%';
                 return options
             },
             afterSetOption (echart){
+
                 echart.on('legendselectchanged', function(){
-                    alert('I am legendselectchanged')
+                    console.log('I am legendselectchanged')
                 });
                 echart.dispatchAction({
                     type: 'legendToggleSelect'
                 });
-
 
             }
         }
@@ -106,8 +132,13 @@
         line-height: 20px;
         font-size: 13px;
     }
+    .ve-histogram{
+        position: relative;
+
+        /*right: 10%*/
+    }
     .info-box{
-        margin-top: 30px;
+        /*margin-top: 30px;*/
         padding: 0 15px;
     }
     .info-title{
@@ -115,6 +146,7 @@
         font-size: 15px;
     }
     .info-content{
+        margin-top: 6px;
         line-height: 1.6;
         color: #666;
     }
