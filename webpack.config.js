@@ -2,7 +2,7 @@ const path = require('path');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry:  "./pages/entry.js",
+    entry: "./pages/entry.js",
     // output:   __dirname + "/build/bundle.js",
     output: {
         path: path.resolve(__dirname, 'build'),
@@ -13,6 +13,7 @@ module.exports = {
         compress: true,
         port: 8082
     },
+    // devtool: "source-map",
     module:{
         rules: [
             {
