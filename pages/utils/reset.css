@@ -1,8 +1,9 @@
-*{position: relative;margin:0;padding:0;}
-body{font-family:"Helvetica Neue",'微软雅黑', Verdana, Arial, Helvetica, sans-serif;
-
+*{ position: relative;margin:0;padding:0; }
+body{
+    font-family:"Helvetica Neue",'微软雅黑', Verdana, Arial, Helvetica, sans-serif;
     font-size: 14px;
-    color: #333333;}
+    color: #333333;
+}
 
 /*常见元素reset   */
 @media (min-width:1px){
@@ -63,5 +64,5 @@ body{font-family:"Helvetica Neue",'微软雅黑', Verdana, Arial, Helvetica, san
 
 
 body{
-    background: #f7f7f7;
+    background: #fff;
 }

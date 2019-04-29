@@ -1,4 +1,5 @@
 import Vue from "vue"
+import store from "./store"
 import VueRouter from 'vue-router'
 import routes from './router/router'
 import Vcharts from 'v-charts'
@@ -14,5 +15,6 @@ const router = new VueRouter({
 
 new Vue({
     el: '#main',
+    store,
     router
 });
