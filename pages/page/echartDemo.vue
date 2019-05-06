@@ -52,11 +52,11 @@
             }
         },
         mounted () {
-            // this.drawBar()
+            this.drawBar()
         },
         methods: {
             drawBar () {
-                let myCharts = echarts.init(this.$refs.barchart)
+                let myCharts = Echarts.init(this.$refs.barchart)
                 myCharts.setOption({
                     color: ['#83d0d5', '#f1cb48', '#188ae2', '#E8830B', '#7460ae', '#fc4b6c', '#31ce77', '#eae0bc', '#e732cb', '#9dce8a'],
                     title: {
