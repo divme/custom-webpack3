@@ -47,31 +47,55 @@ module.exports = {
             },
             {
                 test: /(\.jsx|\.js)$/,
-                use: {
-                    loader: "babel-loader",
-                },
+                loader: "babel-loader",
                 exclude: /node_modules/
             },
             {
                 test: /\.json$/,
                 loader: 'json-loader'
             },
-            {
-                test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-                loader: 'file-loader',
 
+            // {
+            //     test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+            //     loader: 'file-loader',
+            //
+            // },
+
+            // {
+            //     test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+            //     loader: 'file-loader',
+            //     options: {
+            //         outputPath: "images/",
+            //         useRelativePath: true,
+            //         name: "[name].[hash:8].[ext]",//8表示截取 hash 的长度
+            //         limit: 10000
+            //     }
+            // },
+
+            // {
+            //     test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+            //     loader: 'url-loader?limit=2000&name=./image/[name].[ext]?[hash]',
+            //
+            // },
+
+            {
+                test: /\.(png|jpg|gif)$/,
+                loader: 'url-loader',
+                options: {
+                    limit: 2000,
+                    name: './img/[name].[ext]?[hash]'
+                 }
             },
+
             {
                 test: /\.vue$/,
                 loader: 'vue-loader'
             },
             {
                 test: /\.(html)$/,
-                use: {
-                    loader: 'html-loader',
-                    options: {
-                        attrs: [':data-src']
-                    }
+                loader: 'html-loader',
+                options: {
+                    attrs: [':data-src']
                 }
             }
         ]
