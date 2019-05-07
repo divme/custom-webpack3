@@ -67,14 +67,14 @@ module.exports = {
             //     options: {
             //         outputPath: "images/",
             //         useRelativePath: true,
-            //         name: "[name].[hash:8].[ext]",//8表示截取 hash 的长度
+            //         name: "[name].[hash:8].[ext]",//8表示截取 hash 的长度,ext表示原来是啥类型，就是啥类型
             //         limit: 10000
             //     }
             // },
 
             // {
             //     test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-            //     loader: 'url-loader?limit=2000&name=./image/[name].[ext]?[hash]',
+            //     loader: 'url-loader?limit=2000&name=./image/[name][hash].[ext]?',
             //
             // },
 
@@ -82,8 +82,8 @@ module.exports = {
                 test: /\.(png|jpg|gif)$/,
                 loader: 'url-loader',
                 options: {
-                    limit: 2000,
-                    name: './img/[name].[ext]?[hash]'
+                    limit: 8000,
+                    name: './img/[name][hash:8].[ext]'
                  }
             },
 
