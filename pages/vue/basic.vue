@@ -3,15 +3,7 @@
         <div class="header">{{title}}</div>
         <div class="content">{{content}}</div>
 
-        <!--class与style强化-->
-        <div class="classbox">
-            <div class="info" :class="claStr">string class</div>
-            <div class="info" :class="claObj">obj class</div>
-            <div class="info" :class="claArr">Arr class</div>
-        </div>
-        <div class="stylebox">
-            <div :style="contentStyle">style 可以绑定为 Obj, 也可以绑定为 Arr</div>
-        </div>
+
 
         <!--命令大全-->
         <div class="directivebox">
@@ -50,6 +42,18 @@
             <div v-once>v-once: 我只渲染一次</div>
             <div v-pre>v-pre: 我是纯html，不用编译</div>
             <div>v-slot v-cloak</div>
+        </div>
+
+
+        <!--class与style强化-->
+        <h1>class 与 style 绑定强化</h1>
+        <div class="classbox">
+            <div class="info" :class="claStr">string class</div>
+            <div class="info" :class="claObj">obj class</div>
+            <div class="info" :class="claArr">Arr class</div>
+        </div>
+        <div class="stylebox">
+            <div :style="contentStyle">style 可以绑定为 Obj, 也可以绑定为 Arr</div>
         </div>
 
         <!--计算属性-->

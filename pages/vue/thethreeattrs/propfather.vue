@@ -15,7 +15,6 @@
                 }
             }
         },
-
         computed:{
           themeColor: function (){
               return this.$store.state.themeColor;
