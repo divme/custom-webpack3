@@ -22,7 +22,7 @@
         </div>
         <div class="main" v-if="isvue">
             <router-link to="/vuebasic">Vue test: basic</router-link>
-            <router-link to="/vueprop">Vue test: prop</router-link>
+            <router-link to="/vuepropfather">Vue test: propfather</router-link>
             <router-link to="/vuestore">Vue test: store</router-link>
         </div>
 

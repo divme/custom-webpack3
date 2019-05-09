@@ -5,6 +5,7 @@ import VeScatter from  'pages/page/vechartScatter.vue'
 import VeMap from  'pages/page/vechartMap.vue'
 
 import Vueprop from 'pages/vue/thethreeattrs/prop.vue'
+import Vuepropfather from 'pages/vue/thethreeattrs/propfather.vue'
 import Vuestore from 'pages/vue/store.vue'
 import Vuebasic from 'pages/vue/basic.vue'
 
@@ -30,6 +31,7 @@ export default [
 
     { path:'/vuebasic', component: Vuebasic},
     { path:'/vueprop', component: Vueprop},
+    { path:'/vuepropfather', component: Vuepropfather},
     { path:'/vuestore', component: Vuestore},
 
 
