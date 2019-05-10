@@ -4,7 +4,25 @@
         <div class="box">
             <h3>子组件</h3>
             <div class="btn" @click="clickson">子组件focus</div>
-            <pp title="来自父实例的命名"  v-bind="propsonobj" @testevent="proptestevent" placeholder="Enter your username" style="color: red;"  ref="propson"></pp>
+            <div>{{pinfeather.pname}}</div>
+
+            <!--子组件prop只接受了title 和 pinfeather属性-->
+            <pp title="来自父实例的命名"  v-bind="pinfeather"
+
+                ref="propson"  style="font-weight: bold;"
+
+                placeholder="Enter your username"
+
+                @testevent="proptestevent"
+
+                v-model="modelVal">
+            </pp>
+
+            <search-inputvmodel v-model="modelson0"></search-inputvmodel>
+            <div>modelson0: {{modelson0}}</div>
+
+            <!--<search-input :value="modelson" @input="sonfunc"></search-input>-->
+            <div>{{modelson}}</div>
         </div>
 
     </div>
@@ -12,18 +30,23 @@
 
 <script>
 
-    import pp from './prop'
+    import pp from './prop';
+    import searchInputvmodel from './soninputvmodel';
+    import searchInput from './soninput';
 
     export default {
-        name: 'propfather',
+        name: 'pinfeather',
         components:{
-            pp
+            pp, searchInputvmodel, searchInput
         },
         data: function(){
             return {
-                propsonobj:{
-                    titles: 'propsonobj-title',
-                    number: 6
+                modelVal: 'onePunchMan',
+                modelson0: 'hi0',
+                modelson: 'hi',
+                pinfeather:{
+                    pname: 'pname',
+                    pnumber: 6
                 }
             }
         },
@@ -36,6 +59,9 @@
             proptestevent(){
                 alert('vm emit something')
             },
+            sonfunc(msg){
+                this.modelson = msg
+            }
 
 
         }

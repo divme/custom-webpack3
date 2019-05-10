@@ -26,7 +26,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         themeName: 'dark',
-        themeColor: '#ea3939',
+        themeColor: '#666',
         themeSate: 'running',
 
         iscockpit: true,
