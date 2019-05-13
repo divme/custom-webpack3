@@ -7,7 +7,7 @@
             <div>{{pinfeather.pname}}</div>
 
             <!--子组件prop只接受了title 和 pinfeather属性-->
-            <pp title="来自父实例的命名"  v-bind="pinfeather"
+            <sonprop title="来自父实例的命名"  v-bind="pinfeather"
 
                 ref="propson"  style="font-weight: bold;"
 
@@ -16,7 +16,7 @@
                 @testevent="proptestevent"
 
                 v-model="modelVal">
-            </pp>
+            </sonprop>
 
             <search-inputvmodel v-model="modelson0"></search-inputvmodel>
             <div>modelson0: {{modelson0}}</div>
@@ -30,14 +30,15 @@
 
 <script>
 
-    import pp from './prop';
+    import sonprop from './sonprop';
     import searchInputvmodel from './soninputvmodel';
     import searchInput from './soninput';
 
     export default {
+        
         name: 'pinfeather',
         components:{
-            pp, searchInputvmodel, searchInput
+            sonprop, searchInputvmodel, searchInput
         },
         data: function(){
             return {

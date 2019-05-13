@@ -4,7 +4,7 @@ import VeLine from  'pages/page/vechartLine.vue'
 import VeScatter from  'pages/page/vechartScatter.vue'
 import VeMap from  'pages/page/vechartMap.vue'
 
-import Vueprop from 'pages/vue/thethreeattrs/prop.vue'
+import Vueprop from 'pages/vue/thethreeattrs/sonprop.vue'
 import Vuepropfather from 'pages/vue/thethreeattrs/propfather.vue'
 import Vuestore from 'pages/vue/store.vue'
 import Vuebasic from 'pages/vue/basic.vue'

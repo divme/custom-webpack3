@@ -1,12 +1,7 @@
 <template>
     <div class="container">
-        <div class="header">{{title}}</div>
-        <div class="content">{{content}}</div>
-
-
-
         <!--命令大全-->
-        <div class="directivebox">
+        <div class="directivebox box">
             <h1>Vue 命令大全</h1>
             <div v-bind:title="directives.title" v-html="directives.html"></div>
             <div v-text="directives.text"></div>
@@ -42,22 +37,42 @@
             <div v-once>v-once: 我只渲染一次</div>
             <div v-pre>v-pre: 我是纯html，不用编译</div>
             <div>v-slot v-cloak</div>
+
+            <p>四个不需要表达式的功能指令: v-else v-once v-pre  v-cloak</p>
+            <p>v-bind v-on 需要prop</p>
         </div>
 
+        <div class="header" ref="header">{{title}}</div>
+        <div class="content">{{content}}</div>
+        <div>计算属性computedstr：{{computedstr}}</div>
 
         <!--class与style强化-->
-        <h1>class 与 style 绑定强化</h1>
-        <div class="classbox">
-            <div class="info" :class="claStr">string class</div>
-            <div class="info" :class="claObj">obj class</div>
-            <div class="info" :class="claArr">Arr class</div>
-        </div>
-        <div class="stylebox">
-            <div :style="contentStyle">style 可以绑定为 Obj, 也可以绑定为 Arr</div>
+        <div class="box">
+            <h1>class 与 style 绑定强化</h1>
+            <div class="classbox">
+                <div class="info" :class="claStr">string class</div>
+                <div class="info" :class="claObj">obj class</div>
+                <div class="info" :class="claArr">Arr class</div>
+            </div>
+            <div class="stylebox">
+                <div :style="contentStyle">style 可以绑定为 Obj, 也可以绑定为 Arr</div>
+            </div>
         </div>
 
-        <!--计算属性-->
-        <div>{{computedstr}}</div>
+        <div class="box">
+            <h1>子组件</h1>
+            <div class="btn" @click="clickson">子组件专用</div>
+            <sonprop @testevent="proptestevent"  ref="propson"></sonprop>
+        </div>
+
+       <div class="box">
+           <h1>实例方法测试</h1>
+           <h4>数据</h4>
+           <div @click="vmset" :style="eventStyle">vm.$set
+              <!--<p v-show="dd">www</p>-->
+           </div>
+       </div>
+
     </div>
 </template>
 
@@ -67,8 +82,13 @@
     import img3 from './image/ic_mncg.png';
     import img4 from './image/ic_tgsq.png';
 
+    import sonprop from './thethreeattrs/sonprop'
+
     export default {
         name: 'basicvue',
+        components:{
+            sonprop
+        },
         data: function(){
             return {
                 themeColor: '#ea3939',
@@ -89,6 +109,11 @@
                 contentStyle: {
                     fontWeight: 'bold',
                     color: 'green'
+                },
+                eventStyle:{
+                    padding: '10px',
+                    background: '#ddd',
+                    color: '#ea3939'
                 },
 
                 // 常用12指令
@@ -138,11 +163,34 @@
             }
         },
         methods:{
+            // 指令方法
             changeVshow(){
                 this.directives.vshow = !this.directives.vshow;
             },
             initvalue(){
                 this.directives.inputvalue = 'input content'
+            },
+
+            // 父子组件通信
+            clickson(){
+                this.$refs.propson.changefocus()
+            },
+            proptestevent(){
+                alert('vm emit something')
+            },
+
+            // 实例方法
+            vmset(){
+
+                debugger;
+                console.log('$data: ' + this.$data);
+                console.log('$props: '+ this.$props);
+                console.log('$el: '+ this.$el);
+                console.log('$options: '+ this.$options);
+                console.log('$parent: '+ this.$parent);
+                console.log('$root: ' + this.$root.nodeType)
+                console.log('$children: ' + this.$children)
+                // this.$set( 'dd' , true)
             }
         },
         watch:{
@@ -161,7 +209,8 @@
       padding: 10px 15px;
       line-height: 1.6;
   }
-  .directivebox{
+
+  .box{
       margin: 20px -15px;
       padding: 10px;
       font-size: 15px;

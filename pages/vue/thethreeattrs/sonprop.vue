@@ -37,7 +37,7 @@
           pname: String,
           pnumber: Number,
           modelprop: {
-              required: true
+              required: false
           }
         },
         data: function(){
