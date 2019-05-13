@@ -3,8 +3,7 @@
        <div class="group">
            <input type="text" id="i3" name="i3" :value="value" @input="eventtofather"/><label>搜索</label>
        </div>
-       <div>{{valuefromfather}}</div>
-
+       <div>value: {{value}}</div>
    </div>
 </template>
 
@@ -16,7 +15,6 @@
         },
         data: function(){
             return {
-                valuefromfather: this.value,
                 sonprop: '11'
             }
         },

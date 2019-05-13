@@ -4,7 +4,7 @@
         <div class="propbox"   @click="changeTheme" :style="eventStyle">{{title}}</div>
 
         <div>自定义组件v-model属性，在子组件内实现绑定</div>
-        <input type="text" id="i1"  ref="propson"   v-bind="$attrs" :value="modelprop" @input="$emit('modelevent', $event.target.value)" />
+        <input type="text" id="i1" name="i1"  ref="propson"   v-bind="$attrs" :value="modelprop" @input="$emit('modelevent', $event.target.value)" />
         <div>{{modelprop}}</div>
 
         <!--<div>组件内一般的双向绑定模拟没问题></div>-->

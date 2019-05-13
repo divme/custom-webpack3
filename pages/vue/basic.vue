@@ -71,6 +71,10 @@
            <div @click="vmset" :style="eventStyle">vm.$set
               <!--<p v-show="dd">www</p>-->
            </div>
+
+           <input type="radio" v-model="pick" v-bind:value="a">{{pick}}{{a}}
+           <div @click="changepick">change pick</div>
+           <div @click="changea">change a</div>
        </div>
 
     </div>
@@ -91,6 +95,8 @@
         },
         data: function(){
             return {
+                a: 'a',
+                pick: 'pick',
                 themeColor: '#ea3939',
                 title: 'vue basic content',
                 content: 'html中嵌入双大括号语法',
@@ -163,6 +169,12 @@
             }
         },
         methods:{
+            changepick(){
+               this.pick = 'picks'
+            },
+            changea(){
+               this.a = 'as'
+            },
             // 指令方法
             changeVshow(){
                 this.directives.vshow = !this.directives.vshow;
