@@ -59,11 +59,6 @@
             </div>
         </div>
 
-        <div class="box">
-            <h1>子组件</h1>
-            <div class="btn" @click="clickson">子组件专用</div>
-            <sonprop @testevent="proptestevent"  ref="propson"></sonprop>
-        </div>
 
        <div class="box">
            <h1>实例方法测试</h1>
@@ -86,13 +81,9 @@
     import img3 from './image/ic_mncg.png';
     import img4 from './image/ic_tgsq.png';
 
-    import sonprop from './thethreeattrs/sonprop'
 
     export default {
         name: 'basicvue',
-        components:{
-            sonprop
-        },
         data: function(){
             return {
                 a: 'a',

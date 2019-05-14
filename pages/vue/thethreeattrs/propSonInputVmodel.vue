@@ -1,26 +1,36 @@
 <template>
    <div class="con">
        <div class="group">
-           <input type="text" id="i3" name="i3" :value="value" @input="eventtofather"/><label>搜索</label>
+           <input type="text" id="i4" name="i4" @focus="onfocus" :value="valuefromfather" @input="$emit('inputs', $event.target.value)"/><label for="i4">搜索</label>
        </div>
-       <div>value: {{value}}</div>
+       <div>valuefromfather: {{valuefromfather}}</div>
+
    </div>
 </template>
 
 <script>
     export default {
+        // v-model模式
+        model: {
+            prop: 'valuefromfather',
+            event: 'inputs'
+        },
         props:{
             // 组件直接模拟v-model模式
-            value: String,
+            valuefromfather: String,
         },
         data: function(){
             return {
-                sonprop: '11'
+
             }
         },
         methods:{
             eventtofather(e){
-                this.$emit('input', e.target.value)
+                this.$emit('inputs', e.target.value)
+            },
+            onfocus(){
+                // debugger;
+                console.dirxml(document.activeElement)
             }
         }
     }

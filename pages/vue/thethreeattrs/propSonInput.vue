@@ -1,23 +1,16 @@
 <template>
    <div class="con">
        <div class="group">
-           <input type="text" id="i4" name="i4" :value="valuefromfather" @input="eventtofather"/><label>搜索</label>
+           <input type="text" id="i3" name="i3" @focus.stop="ddd" :value="soninput" @input="$emit('soninputevent', $event.target.value)"/><label for="i3">搜索</label>
        </div>
-       <div>valuefromfather: {{valuefromfather}}</div>
-
+       <div>来自父组件的prop: {{soninput}}</div>
    </div>
 </template>
 
 <script>
     export default {
-        // v-model模式
-        model: {
-            prop: 'valuefromfather',
-            event: 'input'
-        },
         props:{
-            // 组件直接模拟v-model模式
-            valuefromfather: String,
+            soninput: String,
         },
         data: function(){
             return {
@@ -25,8 +18,9 @@
             }
         },
         methods:{
-            eventtofather(e){
-                this.$emit('input', e.target.value)
+            ddd(){
+                // debugger;
+                console.dirxml(document.activeElement);
             }
         }
     }

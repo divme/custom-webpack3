@@ -3,7 +3,7 @@
          <div class="header">
              <slot name="header"></slot>
          </div>
-         <div class="content">
+         <div class="content" v-on="allthings">
              <slot name="content" v-bind:dd="gotofather"></slot>
          </div>
          <div class="footer">
@@ -17,6 +17,14 @@
         data(){
             return {
                 gotofather: 'come from slot son'
+            }
+        },
+        computed:{
+            allthings: function(){
+                return Object.assign({},
+                    this.$listeners,
+                    {}
+                )
             }
         }
     }
