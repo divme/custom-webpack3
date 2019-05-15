@@ -6,8 +6,8 @@
     import 'v-charts/lib/style.css';
     export default {
         data: function () {
-           this.options={
-              colors:['red']
+            this.options={
+                colors:['red']
             };
             this.colors = ['#ea3939'];
             this.log = true;

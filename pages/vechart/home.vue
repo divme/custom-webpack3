@@ -16,6 +16,7 @@
         </div>
         <div class="main" v-if="isvchart">
             <router-link to="/echart">go to echart</router-link>
+            <router-link to="/useechart">go to useechart</router-link>
             <router-link to="/veline">go to vechartLine</router-link>
             <router-link to="/vescatter">go to vechartScatter</router-link>
             <router-link to="/vemap">go to vechartMap</router-link>

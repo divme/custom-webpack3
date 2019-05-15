@@ -57,7 +57,7 @@
         },
         methods: {
             drawBar () {
-                debugger;
+                // debugger;
                 let myCharts = Echarts.init(this.$refs.barchart);
                 myCharts.setOption({
 
