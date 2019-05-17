@@ -1,8 +1,10 @@
 <template>
     <div>
-        <div class="title-box">
-            <span class="title">2015年部门绩效收入</span>
-        </div>
+        <basic-title :title="topTitle">
+            <template v-slot:subLeft>
+                <span>单位：万元</span>
+            </template>
+        </basic-title>
         <ve-pie
                 width='100%'
                 height="300px"
@@ -99,8 +101,13 @@
     </div>
 </template>
 <script>
+    import BasicTitle from './components/basicTitle'
     export default {
+        components: {
+            BasicTitle
+        },
         data () {
+            this.topTitle = '2015年部门绩效收入（饼图）';
             this.title = {
                 text: 'I am title'
             };
@@ -194,11 +201,6 @@
         padding-bottom: 10px;
         border-bottom: 2px solid #333;
         color: #666;
-    }
-    .ve-pie{
-        margin:10px auto;
-        padding: 0 10px;
-        box-sizing: border-box;
     }
     .ve-pie div{
         width: 100%!important;

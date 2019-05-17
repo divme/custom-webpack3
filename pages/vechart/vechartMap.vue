@@ -3,7 +3,7 @@
         <h4>地图</h4>
         <!--<ve-map :data="chartData"></ve-map>-->
         <div style="width: 300px; height: 300px; overflow: hidden;">
-            <ve-map  width="20px" height="20px" :data="beijing.chartData" :settings="beijing.chartSettings"></ve-map>
+            <ve-map :data="beijing.chartData" :settings="beijing.chartSettings" :extend="beijing.chartOptions"></ve-map>
         </div>
 
     </div>
@@ -25,13 +25,21 @@
                     ]
                 },
                 beijing:{
+                    chartOptions:{
+                        legend: {
+                            show: false
+                        },
+                        tooltip: {
+                            show: false
+                        }
+                    },
                     chartSettings: {
                         position: 'province/beijing',
                         label: false,
                         labelMap: {
 
                         },
-                        zoom: 0.1,
+                        zoom: 0.6,
                         mapGrid: {
                             top: 10,
                             left: 10

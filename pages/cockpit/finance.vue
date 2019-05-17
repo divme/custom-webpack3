@@ -50,7 +50,7 @@
                         // formatter: function(val, index){
                         // },
                         color: function(val, index){
-                            var colors = ['#df5316', '#e67843', '#ffc000'];
+                            const colors = ['#df5316', '#e67843', '#ffc000'];
                             return colors[index];
                         }
                     },

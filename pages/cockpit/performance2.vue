@@ -1,39 +1,49 @@
 <template>
     <div>
-        <div class="title-box">
-            <span class="title">2015年部门绩效收入2</span>
-        </div>
+        <basic-title :title="title">
+            <template v-slot:subLeft>
+                <span>单位: 万元</span>
+            </template>
+            <template v-slot:subRight>
+                <router-link to="/performance">明细查询</router-link>
+            </template>
+        </basic-title>
         <ve-bar
                 width='100%'
-                height="580px"
+                height="520px"
                 :settings = "chartSettings"
                 :extend="chartExtend"
                 :data="chartData"
 
                 :after-config="afterConfig"
                 :before-config="beforeConfig"
+                :after-set-option-once="afterSetOptionOnce"
         >
         </ve-bar>
         <div class="list">
-
+            公司总收入: 755.412.72
         </div>
-
     </div>
 </template>
 <script>
+    import BasicTitle from './components/basicTitle'
     export default {
+        components: {
+            BasicTitle
+        },
         data () {
-            this.title = {
-                text: 'I am title'
-            };
+            this.title = '2015年部门绩效收入（条形图）';
             this.colors = ['#E77841'];
             this.chartExtend = {
                 color: ['#e77841'],
+                title:{
+                    show: false
+                },
                 legend:{
                     show: false
                 },
                 xAxis:{
-                    // show: false,
+                    show: false,
                     axisLine:{
                         show: false
                     },
@@ -62,21 +72,27 @@
                     }
                 },
                 yAxis:{
+                    inverse: true,
 
                     axisLabel:{
 
                     }
+                },
+                series:{
+                    barWidth: 22
                 }
             };
             this.chartSettings = {
-                scale:[true, true],
+                scale: [true, true],
                 dataOrder: true,
                 max: [2222222],
+                barCategoryGap: 30,
                 label:{
                     show: true,
                     position: 'right',
                     formatter: '{c}',
                     padding: 5,
+                    // height: 30,
                     backgroundColor: '#FABF91',
                     color: '#fff'
                 }
@@ -93,7 +109,7 @@
                         { 'Name': '债券融资总部', 'Order': 52930.28 },
                         { 'Name': '衍生品部', 'Order': 39582.41 },
                         { 'Name': '研究结构线', 'Order': 31612.91 },
-                        { 'Name': '新三板业务总部', 'Order': 1117.86 }
+                        { 'Name': '新三板业务总部', 'Order': 3446.86 }
                     ]
                 }
             }
@@ -113,7 +129,11 @@
                 // };
                 // debugger;
                 return options
-            }
+            },
+            afterSetOptionOnce(e){
+                e.getDom().style.top = '-10px';
+                // debugger;
+             }
         }
     }
 </script>
@@ -123,39 +143,33 @@
         margin: 30px 15px 10px;
     }
     .title{
+        display: inline-block;
         padding-right: 25px;
         padding-bottom: 10px;
         border-bottom: 2px solid #333;
         color: #666;
     }
-    .ve-pie{
-        margin:10px auto;
-        padding: 0 10px;
-        box-sizing: border-box;
+    .subtitle{
+        display: flex;
+        justify-content: space-between;
+
+        margin-top: 5px;
     }
+    .subtitle a{
+        text-decoration: underline;
+    }
+
     .ve-pie div{
         width: 100%!important;
     }
     .list{
-        display: flex;
-        justify-content: space-around;
+        position: relative;
+        top: -20px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        color: #ea3939;
     }
-    .list ul{
-        flex: 1 1 auto;
-    }
-    .list-name{
-        min-width: 8em;
-    }
-    .list-income{
-        min-width: 6em;
-    }
-    .list-grate{
-        min-width: 6em;
-    }
-    .li{
-        height: 40px;
-        line-height: 40px;
-        padding: 0 12px;
-        border-bottom:  1px solid #dedede;
-    }
+
+
 </style>
