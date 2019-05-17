@@ -31,6 +31,12 @@
                         },
                         tooltip: {
                             show: false
+                        },
+                        series:{
+                            itemStyle:{
+                                areaColor: 'yellow',
+                                color: 'red'
+                            }
                         }
                     },
                     chartSettings: {
