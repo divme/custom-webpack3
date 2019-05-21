@@ -50,7 +50,6 @@
                     axisLabel:{
                         show: false,
                         margin: 12,
-
                         lineHeight: 20,
                         // backgroundColor: 'red',
                         width: 120,

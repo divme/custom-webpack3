@@ -1,4 +1,4 @@
-import Home from 'pages/vechart/home.vue'
+import Home from 'pages/home.vue'
 
 import Echart from 'pages/vechart/echartDemo.vue'
 import UseEchart from 'pages/vechart/echartUse.vue'

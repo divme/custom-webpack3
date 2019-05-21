@@ -11,12 +11,11 @@
 
         <div class="main" v-if="iscockpit">
             <router-link to="/finance">2015年财务分析</router-link>
-            <router-link to="/performance">2015年部门绩效收入</router-link>
-            <router-link to="/performance2">2015年部门绩效收入2</router-link>
+            <router-link to="/performance">2015年部门绩效收入(柱状图)</router-link>
+            <router-link to="/performance2">2015年部门绩效收入(条形图)</router-link>
         </div>
         <div class="main" v-if="isvchart">
-            <router-link to="/echart">go to echart</router-link>
-            <router-link to="/useechart">go to useechart</router-link>
+            <router-link to="/useechart">go to useNormalEchart</router-link>
             <router-link to="/veline">go to vechartLine</router-link>
             <router-link to="/vescatter">go to vechartScatter</router-link>
             <router-link to="/vemap">go to vechartMap</router-link>

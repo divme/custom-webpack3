@@ -2,7 +2,7 @@
     <div class="page-line-chart">
         <h4>地图</h4>
         <!--<ve-map :data="chartData"></ve-map>-->
-        <div style="width: 300px; height: 300px; overflow: hidden;">
+        <div style="width: 350px; height: 350px; overflow: hidden;">
             <ve-map :data="beijing.chartData" :settings="beijing.chartSettings" :extend="beijing.chartOptions"></ve-map>
         </div>
 
@@ -30,12 +30,22 @@
                             show: false
                         },
                         tooltip: {
-                            show: false
+                            show: true
                         },
                         series:{
+                            id: 'no',
+                            name: 'noBo',
+                            roam: true,
+                            label:{
+                                show: false
+                            },
+                            selectedMode: 'multiple',
                             itemStyle:{
-                                areaColor: 'yellow',
-                                color: 'red'
+                                // areaColor: 'yellow',
+                                // color: '#eee'
+                            },
+                            markPoint:{
+                                symbol: 'rect'
                             }
                         }
                     },
@@ -45,7 +55,7 @@
                         labelMap: {
 
                         },
-                        zoom: 0.6,
+                        zoom: 1,
                         mapGrid: {
                             top: 10,
                             left: 10
