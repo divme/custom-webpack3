@@ -10,8 +10,9 @@
 
 
         <div class="main" v-if="iscockpit">
-            <router-link to="/finance">2015年财务分析</router-link>
-            <router-link to="/performance">2015年部门绩效收入(柱状图)</router-link>
+            <router-link to="/timedata">2015年财务分析</router-link>
+            <router-link to="/finance">2015年财务分析(柱状图)</router-link>
+            <router-link to="/performance">2015年部门绩效收入(饼图)</router-link>
             <router-link to="/performance2">2015年部门绩效收入(条形图)</router-link>
         </div>
         <div class="main" v-if="isvchart">
@@ -78,9 +79,13 @@
         display: flex;
         justify-content: space-around;
 
+        position: fixed;
+        bottom: 0;
+        left: 0;
         margin: 0;
-        background: #fff;
-        color: #383;
+        width: 100%;
+        /*border-top: 2px solid #dedede;*/
+        background: #f7f7f7;
         font-weight: bold;
     }
     .tabbox div{
@@ -89,10 +94,13 @@
         height: 50px;
         line-height: 50px;
         padding: 0 15px;
+        color: #993333;
         text-align: center;
     }
     .tabbox .active{
-        border-bottom: 2px solid #383;
+        /*border-bottom: 2px solid #383;*/
+        background: #993333;
+        color: #fff;
     }
 
     .main{

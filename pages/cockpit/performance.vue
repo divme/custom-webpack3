@@ -1,6 +1,7 @@
 <template>
     <div>
-        <basic-title :title="topTitle">
+        <basic-topbar title="财务绩效分析一"></basic-topbar>
+        <basic-title :title="pageTitle">
             <template v-slot:subLeft>
                 <span>单位：万元</span>
             </template>
@@ -97,17 +98,17 @@
                 </li>
             </ul>
         </div>
-
     </div>
 </template>
 <script>
     import BasicTitle from './components/basicTitle'
+    import BasicTopbar from './components/basicTopbar'
     export default {
         components: {
-            BasicTitle
+            BasicTitle, BasicTopbar
         },
         data () {
-            this.topTitle = '2015年部门绩效收入（饼图）';
+            this.pageTitle = '2015年部门绩效收入（饼图）';
             this.title = {
                 text: 'I am title'
             };
@@ -193,15 +194,6 @@
 </script>
 <style scoped>
     @import "../utils/reset.css";
-    .title-box{
-        margin: 30px 15px 10px;
-    }
-    .title{
-        padding-right: 25px;
-        padding-bottom: 10px;
-        border-bottom: 2px solid #333;
-        color: #666;
-    }
     .ve-pie div{
         width: 100%!important;
     }

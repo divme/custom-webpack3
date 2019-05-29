@@ -1,9 +1,11 @@
 <template>
     <div>
-        <div class="title-box">
-            <span class="title">2015年财务分析</span>
-            <span class="subtitle">单位：万亿元</span>
-        </div>
+        <basic-topbar title="财务报表分析"></basic-topbar>
+        <basic-title :title="pageTitle">
+            <template v-slot:subLeft>
+                <span>单位：万元</span>
+            </template>
+        </basic-title>
         <ve-histogram
                 width='100%'
                 height="360px"
@@ -28,8 +30,14 @@
     </div>
 </template>
 <script>
+    import BasicTitle from './components/basicTitle'
+    import BasicTopbar from './components/basicTopbar'
     export default {
+        components: {
+            BasicTitle, BasicTopbar
+        },
         data () {
+            this.pageTitle = '2015年财务分析';
             this.colors = ['#df5316', '#e67843', '#ffc000'];
             this.chartExtend = {
                 legend:{
@@ -117,26 +125,7 @@
 </script>
 <style scoped>
     @import "../utils/reset.css";
-    .title-box{
-        margin: 30px 15px 10px;
-    }
-    .title{
-        padding-right: 25px;
-        padding-bottom: 10px;
-        border-bottom: 2px solid #333;
-        color: #666;
-    }
-    .subtitle{
-        display: block;
-        margin-top: 15px;
-        line-height: 20px;
-        font-size: 13px;
-    }
-    .ve-histogram{
-        position: relative;
 
-        /*right: 10%*/
-    }
     .info-box{
         /*margin-top: 30px;*/
         padding: 0 15px;

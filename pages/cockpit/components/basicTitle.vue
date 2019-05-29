@@ -21,7 +21,7 @@
 
 <style scoped>
     .title-box{
-        margin: 30px 15px 10px;
+        margin: 70px 15px 10px;
     }
     .title{
         display: inline-block;

@@ -32,6 +32,14 @@
                         tooltip: {
                             show: true
                         },
+                        toolbox:{
+                            feature:{
+                                saveAsImage: {
+                                    show: true
+                                }
+                            }
+
+                        },
                         series:{
                             id: 'no',
                             name: 'noBo',
@@ -50,12 +58,13 @@
                         }
                     },
                     chartSettings: {
-                        position: 'province/beijing',
+                        // position: 'province/beijing',
+                        position: 'province/zhejiang',
                         label: false,
                         labelMap: {
 
                         },
-                        zoom: 1,
+                        zoom: 0.2,
                         mapGrid: {
                             top: 10,
                             left: 10
@@ -65,10 +74,10 @@
                     chartData: {
                         columns: ['位置', '人口'],
                         rows: [
-                            { '位置': '延庆区', '人口': 123 },
-                            { '位置': '密云区', '人口': 1223 },
-                            { '位置': '平谷区', '人口': 2123 },
-                            { '位置': '海淀区', '人口': 4123 }
+                            // { '位置': '延庆区', '人口': 123 },
+                            // { '位置': '密云区', '人口': 1223 },
+                            // { '位置': '平谷区', '人口': 2123 },
+                            // { '位置': '海淀区', '人口': 4123 }
                         ]
                     }
 

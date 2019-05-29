@@ -16,6 +16,7 @@ import VueStore from 'pages/vue/store.vue'
 import Finance from  'pages/cockpit/finance.vue'
 import Performance from  'pages/cockpit/performance.vue'
 import Performance2 from  'pages/cockpit/performance2.vue'
+import TimeData from  'pages/cockpit/timeData.vue'
 
 
 export default [
@@ -42,5 +43,6 @@ export default [
 
     { path:'/finance', component: Finance},
     { path:'/performance', component: Performance},
-    { path:'/performance2', component: Performance2}
+    { path:'/performance2', component: Performance2},
+    { path:'/timedata', component: TimeData}
 ]

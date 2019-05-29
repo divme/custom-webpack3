@@ -1,6 +1,7 @@
 <template>
     <div>
-        <basic-title :title="title">
+        <basic-topbar title="财务绩效分析二"></basic-topbar>
+        <basic-title :title="pageTitle">
             <template v-slot:subLeft>
                 <span>单位: 万元</span>
             </template>
@@ -27,12 +28,13 @@
 </template>
 <script>
     import BasicTitle from './components/basicTitle'
+    import BasicTopbar from './components/basicTopbar'
     export default {
         components: {
-            BasicTitle
+            BasicTitle, BasicTopbar
         },
         data () {
-            this.title = '2015年部门绩效收入（条形图）';
+            this.pageTitle = '2015年部门绩效收入（条形图）';
             this.colors = ['#E77841'];
             this.chartExtend = {
                 color: ['#e77841'],
@@ -138,22 +140,6 @@
 </script>
 <style scoped>
     @import "../utils/reset.css";
-    .title-box{
-        margin: 30px 15px 10px;
-    }
-    .title{
-        display: inline-block;
-        padding-right: 25px;
-        padding-bottom: 10px;
-        border-bottom: 2px solid #333;
-        color: #666;
-    }
-    .subtitle{
-        display: flex;
-        justify-content: space-between;
-
-        margin-top: 5px;
-    }
     .subtitle a{
         text-decoration: underline;
     }
@@ -163,7 +149,7 @@
     }
     .list{
         position: relative;
-        top: -20px;
+        top: -50px;
         text-align: center;
         font-size: 18px;
         font-weight: bold;

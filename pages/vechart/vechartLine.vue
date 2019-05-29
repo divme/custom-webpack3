@@ -1,18 +1,18 @@
 <template>
-    <ve-line :data="chartData" :options='options'  width="90%" :log="log" ></ve-line>
+    <ve-line :data="chartData" :extend="extend"  :colors="colors"   width="90%" :log="log" ></ve-line>
 </template>
 
 <script>
     import 'v-charts/lib/style.css';
     export default {
         data: function () {
-            this.options={
-                colors:['red']
+            this.extend ={
+                legend:{    
+                    show: false
+                }
             };
-            this.colors = ['#ea3939'];
+            this.colors = ['#993333'];
             this.log = true;
-            this.loading= true;
-            this.empty = true;
             return {
                 chartData: {
                     columns: ['日期', '销售额'],
