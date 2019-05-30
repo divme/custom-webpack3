@@ -91,6 +91,7 @@ module.exports = {
                 test: /\.vue$/,
                 loader: 'vue-loader'
             },
+            { test: /\.(ttf|eot|svg|woff|woff2)$/, use: 'url-loader' },
             {
                 test: /\.(html)$/,
                 loader: 'html-loader',

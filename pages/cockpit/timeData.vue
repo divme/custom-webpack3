@@ -3,7 +3,7 @@
             <basic-topbar title="首页"></basic-topbar>
             <div class="title-box">
                 <div class="title-text">{{titleText}}</div>
-                <div class="title-time">{{titleTime}}}</div>
+                <div class="title-time">{{titleTime}}</div>
             </div>
             <div class="content-box year"  v-show="curItem.year">
                 <div class="content" v-for="content in year.contents" :content="content" :key="">
@@ -95,13 +95,13 @@
     .content-money{
         height: 25px;
         line-height: 25px;
-        font-size: 25px;
+        font-size: 24px;
 
     }
     .content-name{
         height: 15px;
         line-height: 15px;
-        font-size: 14px;
+        font-size: 15px;
     }
 
     .tab-box{
@@ -265,7 +265,7 @@
         methods:{
             changeItem(option){
                 for(var  n in this.curItem){
-                    debugger
+                    // debugger
                     if(this.curItem.hasOwnProperty(n)){
                         this.curItem[n] = false
                     }

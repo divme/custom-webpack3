@@ -11,6 +11,7 @@
 
         <div class="main" v-if="iscockpit">
             <router-link to="/timedata">2015年财务分析</router-link>
+            <router-link to="/ranking">2015年营业收入机构排名</router-link>
             <router-link to="/finance">2015年财务分析(柱状图)</router-link>
             <router-link to="/performance">2015年部门绩效收入(饼图)</router-link>
             <router-link to="/performance2">2015年部门绩效收入(条形图)</router-link>
@@ -64,8 +65,8 @@
 <style scoped>
     a{
     	 display: block;
-	     height: 40px;
-	     line-height: 40px;
+	     height: 45px;
+	     line-height: 45px;
 	     border-bottom:  1px solid #f4f4f4;
 		 color: #666;
          text-align: center;

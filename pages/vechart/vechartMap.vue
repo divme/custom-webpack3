@@ -3,7 +3,12 @@
         <h4>地图</h4>
         <!--<ve-map :data="chartData"></ve-map>-->
         <div style="width: 350px; height: 350px; overflow: hidden;">
-            <ve-map :data="beijing.chartData" :settings="beijing.chartSettings" :extend="beijing.chartOptions"></ve-map>
+            <ve-map :data="area.chartData"
+                    :settings="area.chartSettings"
+                    :extend="area.chartOptions"
+
+                    :after-config="afterConfig"
+            ></ve-map>
         </div>
 
     </div>
@@ -12,9 +17,7 @@
 <script>
     export default {
         data() {
-
             return {
-
                 chartData: {
                     columns: ['位置', '税收', '人口', '面积'],
                     rows: [
@@ -24,7 +27,7 @@
                         { '位置': '浙江', '税收': 4123, '人口': 5123, '面积': 29234 }
                     ]
                 },
-                beijing:{
+                area:{
                     chartOptions:{
                         legend: {
                             show: false
@@ -48,23 +51,21 @@
                                 show: false
                             },
                             selectedMode: 'multiple',
-                            itemStyle:{
-                                // areaColor: 'yellow',
-                                // color: '#eee'
-                            },
                             markPoint:{
                                 symbol: 'rect'
                             }
                         }
                     },
                     chartSettings: {
-                        // position: 'province/beijing',
-                        position: 'province/zhejiang',
+                        position: 'province/guangdong',
                         label: false,
-                        labelMap: {
-
+                        itemStyle: {
+                            normal:{
+                                areaColor: '#02AEF1',
+                                borderWidth: 0
+                            }
                         },
-                        zoom: 0.2,
+                        zoom: 0.3,
                         mapGrid: {
                             top: 10,
                             left: 10
@@ -80,9 +81,14 @@
                             // { '位置': '海淀区', '人口': 4123 }
                         ]
                     }
-
                 }
             };
+        },
+        methods:{
+            afterConfig (options) {
+                // debugger;
+                return options
+            }
         }
     };
 </script>
