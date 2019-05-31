@@ -80,14 +80,17 @@
         display: flex;
         justify-content: space-around;
 
-        position: fixed;
-        bottom: 0;
-        left: 0;
         margin: 0;
-        width: 100%;
-        /*border-top: 2px solid #dedede;*/
-        background: #f7f7f7;
+        font-size: 14px;
         font-weight: bold;
+
+
+        /*position: fixed;*/
+        /*bottom: 0;*/
+        /*left: 0;*/
+        /*width: 100%;*/
+        /*border-bottom: 2px solid #993333;*/
+        /*background: #f7f7f7;*/
     }
     .tabbox div{
         flex-grow: 1;
@@ -95,13 +98,17 @@
         height: 50px;
         line-height: 50px;
         padding: 0 15px;
-        color: #993333;
         text-align: center;
+        color: rgba(153, 51, 51, 0.6);
+
     }
     .tabbox .active{
-        /*border-bottom: 2px solid #383;*/
-        background: #993333;
-        color: #fff;
+        border-bottom: 2px solid #993333;
+        color: #993333;
+        font-size: 18px;
+
+        /*background: #993333;*/
+        /*color: #fff;*/
     }
 
     .main{
