@@ -18,6 +18,7 @@ import Performance from  'pages/cockpit/performance.vue'
 import Performance2 from  'pages/cockpit/performance2.vue'
 import TimeData from  'pages/cockpit/timeData.vue'
 import Ranking from  'pages/cockpit/ranking.vue'
+import Map from  'pages/cockpit/mapDemo.vue'
 
 
 export default [
@@ -46,5 +47,6 @@ export default [
     { path:'/performance', component: Performance},
     { path:'/performance2', component: Performance2},
     { path:'/timedata', component: TimeData},
-    { path:'/ranking', component: Ranking}
+    { path:'/ranking', component: Ranking},
+    { path:'/map', component: Map}
 ]

@@ -14,6 +14,7 @@
           <router-link to="/finance">2015年财务分析(柱状图)</router-link>
           <router-link to="/performance">2015年部门绩效收入(饼图)</router-link>
           <router-link to="/performance2">2015年部门绩效收入(条形图)</router-link>
+          <router-link to="/map">2015年部门地区分布(散点图)</router-link>
       </div>
   </div>
 </template>

@@ -54,7 +54,7 @@
         margin-top: 50px;
         padding-top: 20px;
         line-height: 1.6;
-        font-size: 20px;
+        font-size: 18px;
         text-align: center;
         border-bottom: 1px solid #ccc;
         color: #666;
@@ -93,9 +93,9 @@
         color: #333;
     }
     .content-money{
-        height: 25px;
-        line-height: 25px;
-        font-size: 24px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 22px;
 
     }
     .content-name{
