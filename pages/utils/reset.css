@@ -1,12 +1,12 @@
 *{ position: relative;margin:0;padding:0; }
 
-/*@font-face {*/
-    /*font-family: 'kai';*/
-    /*src: url('./font/kai.ttf');*/
-/*}*/
+@font-face {
+    font-family: 'kai';
+    src: url('./font/kai.ttf');
+}
 body{
-    font-family:"Helvetica Neue",'微软雅黑', Verdana, Arial, Helvetica, sans-serif;
-    /*font-family: 'kai';*/
+    /*font-family:"Helvetica Neue",'微软雅黑', Verdana, Arial, Helvetica, sans-serif;*/
+    font-family: 'kai';
     font-size: 16px;
     color: #333333;
 }

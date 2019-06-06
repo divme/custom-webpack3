@@ -10,6 +10,7 @@
 
 
         <div class="main" v-if="iscockpit">
+            <router-link to="/container">驾驶舱</router-link>
             <router-link to="/timedata">2015年财务分析</router-link>
             <router-link to="/ranking">2015年营业收入机构排名</router-link>
             <router-link to="/finance">2015年财务分析(柱状图)</router-link>

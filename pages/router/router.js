@@ -14,6 +14,7 @@ import VueStore from 'pages/vue/store.vue'
 
 
 import Finance from  'pages/cockpit/finance.vue'
+import Container from  'pages/cockpit/container.vue'
 import Performance from  'pages/cockpit/performance.vue'
 import Performance2 from  'pages/cockpit/performance2.vue'
 import TimeData from  'pages/cockpit/timeData.vue'
@@ -22,9 +23,14 @@ import Map from  'pages/cockpit/mapDemo.vue'
 
 
 export default [
-    { path:'/', component: Home, children:[
-            { path:'/echart', component: Echart},
-            { path:'/useechart', component: UseEchart},
+    { path:'/',
+        component: Home,
+        redirect: 'vescatter',
+        children:[
+            {   path:'/echart',
+                component: Echart
+            },
+            { path:'/useechart',  redirect: '/vuebasic', component: UseEchart},
             { path:'/veline', component: VeLine},
             { path:'/vescatter', component: VeScatter},
             { path:'/vemap', component: VeMap}
@@ -43,10 +49,18 @@ export default [
     { path:'/vuestore', component: VueStore},
 
 
-    { path:'/finance', component: Finance},
-    { path:'/performance', component: Performance},
-    { path:'/performance2', component: Performance2},
-    { path:'/timedata', component: TimeData},
-    { path:'/ranking', component: Ranking},
+    {
+        path:'/container',
+        component: Container,
+        children:[
+            { path:'/finance', component: Finance},
+            { path:'/performance', component: Performance},
+            { path:'/performance2', component: Performance2},
+            { path:'/timedata', component: TimeData},
+            { path:'/ranking', component: Ranking},
+        ]
+
+    },
+
     { path:'/map', component: Map}
 ]
