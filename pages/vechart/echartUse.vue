@@ -1,12 +1,22 @@
 <template>
-    <echart-demo></echart-demo>
+    <div>
+        <echart-demo></echart-demo>
+        <div class="dd">wewq</div>
+        <div class="aa">gwrwr</div>
+        <div class="bb">dsada</div>
+    </div>
 </template>
 
 <script>
-    import EchartDemo from './echartDemo'
+    // import EchartDemo from './echartDemo'
     export default {
         components: {
-            EchartDemo
+            EchartDemo: () => import('./echartDemo')
+        },
+        mounted(){
+            const _this = this;
+            console.log(_this.$el)
+           debugger
         }
     }
 </script>

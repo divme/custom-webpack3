@@ -30,7 +30,7 @@ export default [
             {   path:'/echart',
                 component: Echart
             },
-            { path:'/useechart',  redirect: '/vuebasic', component: UseEchart},
+            { path:'/useechart', component: UseEchart},
             { path:'/veline', component: VeLine},
             { path:'/vescatter', component: VeScatter},
             { path:'/vemap', component: VeMap}
