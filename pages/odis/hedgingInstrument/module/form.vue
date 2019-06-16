@@ -1,28 +1,28 @@
 <template>
-  <el-dialog :append-to-body="true" :visible.sync="dialog" :title="isAdd ? '新增' : '编辑'" width="520px">
-    <el-form ref="form" :model="form" :rules="rules" size="small" label-width="120px">
+  <el-dialog :append-to-body="true" :visible.sync="dialog" :title="isAdd ? '新增' : '编辑'" width="1000px">
+    <el-form ref="form" :inline="true" :model="form" :rules="rules" size="small" label-width="120px">
       <el-form-item label="工具代码" prop="code">
-        <el-input v-model="form.code" style="width: 370px;"/>
+        <el-input v-model="form.code" :style="style"/>
       </el-form-item>
       <el-form-item label="工具名称" prop="name">
-        <el-input v-model="form.name" style="width: 370px;"/>
+        <el-input v-model="form.name" :style="style"/>
       </el-form-item>
       <el-form-item label="交易所代码" prop="exchangeCode">
-        <el-select v-model="form.exchangeCode" clearable placeholder="交易所代码">
+        <el-select v-model="form.exchangeCode" :style="style" clearable placeholder="交易所代码">
           <el-option v-for="item in exchangeDicts" :key="item.value" :label="item.value" :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="交易所名称" prop="exchangeName">
-        <el-input v-model="form.exchangeName" style="width: 370px;" disabled />
+        <el-input v-model="form.exchangeName" :style="style" disabled />
       </el-form-item>
       <el-form-item label="标的代码" prop="underlyingCode">
-        <el-input v-model="form.underlyingCode" style="width: 370px;"/>
+        <el-input v-model="form.underlyingCode" :style="style"/>
       </el-form-item>
       <el-form-item label="标的名称" prop="underlyingName">
-        <el-input v-model="form.underlyingName" style="width: 370px;"/>
+        <el-input v-model="form.underlyingName" :style="style"/>
       </el-form-item>
       <el-form-item label="业务状态" prop="transStatus">
-        <el-select v-model="form.transStatus" clearable placeholder="业务状态">
+        <el-select v-model="form.transStatus" :style="style" clearable placeholder="业务状态">
           <el-option v-for="item in statusDicts" :key="item.label" :label="item.label" :value="item.label"/>
         </el-select>
       </el-form-item>
@@ -30,37 +30,37 @@
         <el-date-picker
           v-model="form.startDate"
           placeholder="请选择日期"
-          style="width: 370px;"
+          :style="style"
           type="date"/>
       </el-form-item>
       <el-form-item label="终止日期" prop="endDate">
         <el-date-picker
           v-model="form.endDate"
           placeholder="请选择日期"
-          style="width: 370px;"
+          :style="style"
           type="date"/>
       </el-form-item>
       <el-form-item label="手续费类型" prop="feeType">
-        <el-select v-model="form.feeType" clearable placeholder="请选择">
+        <el-select v-model="form.feeType" :style="style" clearable placeholder="请选择">
           <el-option v-for="item in feeTypeDicts" :key="item.value" :label="item.value" :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="手续费率" prop="feeRate">
-        <el-input v-model="form.feeRate" style="width: 370px;"/>
+        <el-input v-model="form.feeRate" :style="style"/>
       </el-form-item>
       <el-form-item label="保证金率" prop="marginRate">
-        <el-input v-model="form.marginRate" style="width: 370px;"/>
+        <el-input v-model="form.marginRate" :style="style"/>
       </el-form-item>
       <el-form-item label="乘数" prop="multiplier">
-        <el-input v-model="form.multiplier" style="width: 370px;"/>
+        <el-input v-model="form.multiplier" :style="style"/>
       </el-form-item>
       <el-form-item label="单位名称" prop="unitName">
-        <el-select v-model="form.unitName" clearable placeholder="请选择">
+        <el-select v-model="form.unitName" :style="style" clearable placeholder="请选择">
           <el-option v-for="item in unitDicts" :key="item.value" :label="item.value" :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="数据源" prop="dataSource">
-        <el-select v-model="form.dataSource" clearable placeholder="请选择">
+        <el-select v-model="form.dataSource" :style="style" clearable placeholder="请选择">
           <el-option v-for="item in dataSourceDicts" :key="item.value" :label="item.value" :value="item.value"/>
         </el-select>
       </el-form-item>
@@ -112,6 +112,7 @@ export default {
   data() {
     return {
       loading: false, dialog: false,
+      style: '180px',
       rules: {
         code: [
           { required: true, message: '请输入正确的工具代码', trigger: 'blur' }

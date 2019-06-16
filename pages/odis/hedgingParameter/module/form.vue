@@ -1,8 +1,8 @@
 <template>
   <el-dialog :append-to-body="true" :visible.sync="dialog" :title="isAdd ? '新增' : '编辑'" width="500px">
-    <el-form ref="form" :model="form" :rules="rules" size="small" label-width="80px">
+    <el-form ref="form" :inline="true" :model="form" :rules="rules" size="small" label-width="80px">
       <el-form-item label="标的代码" prop="underlyingCode">
-        <el-select v-model="form.underlyingCode" clearable placeholder="标的代码" @blur="autoFill">
+        <el-select v-model="form.underlyingCode" :style="style" clearable placeholder="标的代码" @blur="autoFill">
           <el-option v-for="item in codeData" :key="item.code" :label="item.code" :value="item.code"/>
         </el-select>
       </el-form-item>
@@ -10,18 +10,18 @@
         <el-date-picker
           v-model="form.parameterDate"
           placeholder="请选择日期"
-          style="width: 370px;"
+          :style="style"
           type="date"
           @blur="autoFill"/>
       </el-form-item>
       <el-form-item label="无风险收益率">
-        <el-input v-model="form.riskFreeRate" style="width: 370px;"/>
+        <el-input v-model="form.riskFreeRate" :style="style"/>
       </el-form-item>
       <el-form-item label="分红率">
-        <el-input v-model="form.dividendRate" style="width: 370px;"/>
+        <el-input v-model="form.dividendRate" :style="style"/>
       </el-form-item>
       <el-form-item label="波动率">
-        <el-input v-model="form.volatilityRate" style="width: 370px;"/>
+        <el-input v-model="form.volatilityRate" :style="style"/>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -53,6 +53,7 @@ export default {
   data() {
     return {
       loading: false, dialog: false,
+      style: '184px',
       rules: {
         underlyingCode: [
           { required: true, message: '请输入正确的标的代码', trigger: 'blur' }

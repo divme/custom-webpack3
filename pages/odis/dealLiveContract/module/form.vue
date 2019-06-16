@@ -2,7 +2,7 @@
   <el-dialog :append-to-body="true" :visible.sync="dialog" :title="isAdd ? (isCopy?'复制':'新增') : '编辑'" :center="true" width="1290px">
     <el-form ref="form" :inline="true" :model="form" :rules="rules" size="small" label-width="116px" style="font-size: 0;">
       <el-form-item label="合约编号" prop="dealNo">
-        <el-input v-model="form.dealNo" />
+        <el-input v-model="form.dealNo" :style="style" />
       </el-form-item>
       <el-form-item label="标的代码" prop="underlyingCode">
         <el-select :style="style" v-model="form.underlyingCode" clearable placeholder="请选择">
@@ -15,7 +15,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="业务部门" prop="dealOwner">
-        <el-input v-model="form.dealOwner" />
+        <el-input v-model="form.dealOwner" :style="style" />
       </el-form-item>
       <el-form-item label="期权结构代码" prop="optionStructureCode">
         <el-select :style="style" v-model="form.optionStructureCode" clearable placeholder="请选择">
@@ -33,7 +33,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="名义金额" prop="nominal">
-        <el-input v-model="form.nominal" />
+        <el-input v-model="form.nominal" :style="style"/>
       </el-form-item>
       <el-form-item label="起始日" prop="startDate">
         <el-date-picker
@@ -63,7 +63,7 @@
         <el-radio v-for="item in booleanDict" :style="rStyle" :key="item.label" v-model="form.ifAnnual" :label="item.value">{{ item.label }}</el-radio>
       </el-form-item>
       <el-form-item label="年化期限" prop="annualizedDays">
-        <el-input v-model="form.annualizedDays" />
+        <el-input v-model="form.annualizedDays" :style="style" />
       </el-form-item>
       <el-form-item label="付款方式" prop="paytimeType">
         <el-select :style="style" v-model="form.paytimeType" clearable placeholder="请选择">
@@ -71,58 +71,58 @@
         </el-select>
       </el-form-item>
       <el-form-item label="期权费率" prop="optionFeeRate">
-        <el-input v-model="form.optionFeeRate" />
+        <el-input v-model="form.optionFeeRate" :style="style"  />
       </el-form-item>
       <el-form-item label="固定收益率" prop="optionFixRate">
-        <el-input v-model="form.optionFixRate" />
+        <el-input v-model="form.optionFixRate" :style="style" />
       </el-form-item>
       <el-form-item label="附加费率" prop="additionalRate">
-        <el-input v-model="form.additionalRate" />
+        <el-input v-model="form.additionalRate" :style="style" />
       </el-form-item>
       <el-form-item label="期初价" prop="initialPrice">
-        <el-input v-model="form.initialPrice" />
+        <el-input v-model="form.initialPrice" :style="style" />
       </el-form-item>
       <el-form-item label="分红率(定价)" prop="pricingDividendRate">
-        <el-input v-model="form.pricingDividendRate" />
+        <el-input v-model="form.pricingDividendRate" :style="style" />
       </el-form-item>
       <el-form-item label="波动率(定价)" prop="pricingVolatility">
-        <el-input v-model="form.pricingVolatility" />
+        <el-input v-model="form.pricingVolatility" :style="style" />
       </el-form-item>
       <el-form-item label="无风险收益率(定价)" prop="pricingRiskFreeRate">
-        <el-input v-model="form.pricingRiskFreeRate" />
+        <el-input v-model="form.pricingRiskFreeRate" :style="style" />
       </el-form-item>
       <el-form-item label="波动率(对冲)" prop="hedgingVolatility">
-        <el-input v-model="form.hedgingVolatility" />
+        <el-input v-model="form.hedgingVolatility" :style="style"/>
       </el-form-item>
       <el-form-item label="无风险收益率(对冲)" prop="hedgingRiskFreeRate">
-        <el-input v-model="form.hedgingRiskFreeRate" />
+        <el-input v-model="form.hedgingRiskFreeRate" :style="style"/>
       </el-form-item>
       <el-form-item label="左执行价" prop="leftStrikePrice">
-        <el-input v-model="form.leftStrikePrice" />
+        <el-input v-model="form.leftStrikePrice":style="style" />
       </el-form-item>
       <el-form-item label="中执行价" prop="midStrikePrice">
-        <el-input v-model="form.midStrikePrice" />
+        <el-input v-model="form.midStrikePrice" :style="style"/>
       </el-form-item>
       <el-form-item label="右执行价" prop="rightStrikePrice">
-        <el-input v-model="form.rightStrikePrice" />
+        <el-input v-model="form.rightStrikePrice" :style="style"/>
       </el-form-item>
       <el-form-item label="左Rebate" prop="leftRebateRate">
-        <el-input v-model="form.leftRebateRate" />
+        <el-input v-model="form.leftRebateRate" :style="style"/>
       </el-form-item>
       <el-form-item label="右Rebate" prop="rightRebateRate">
-        <el-input v-model="form.rightRebateRate" />
+        <el-input v-model="form.rightRebateRate" :style="style"/>
       </el-form-item>
       <el-form-item label="左参与率" prop="leftParticipateRate">
-        <el-input v-model="form.leftParticipateRate" />
+        <el-input v-model="form.leftParticipateRate" :style="style"/>
       </el-form-item>
       <el-form-item label="右参与率" prop="rightParticipateRate">
-        <el-input v-model="form.rightParticipateRate" />
+        <el-input v-model="form.rightParticipateRate" :style="style"/>
       </el-form-item>
       <el-form-item label="左hurdle" prop="leftHurdle">
-        <el-input v-model="form.leftHurdle" />
+        <el-input v-model="form.leftHurdle" :style="style"/>
       </el-form-item>
       <el-form-item label="右hurdle" prop="rightHurdle">
-        <el-input v-model="form.rightHurdle" />
+        <el-input v-model="form.rightHurdle" :style="style"/>
       </el-form-item>
       <el-form-item label="是否敲出" prop="ifKnockout">
         <el-radio v-for="item in booleanDict" :style="rStyle" :key="item.label" v-model="form.ifKnockout" :label="item.value">{{ item.label }}</el-radio>
@@ -131,10 +131,10 @@
         <el-radio v-for="item in booleanDict" :style="rStyle" :key="item.label" v-model="form.ifReportPnl" :label="item.value">{{ item.label }}</el-radio>
       </el-form-item>
       <el-form-item label="提前终止价" prop="terminatePrice">
-        <el-input v-model="form.terminatePrice" />
+        <el-input v-model="form.terminatePrice" :style="style"/>
       </el-form-item>
       <el-form-item label="乘数" prop="multiplier">
-        <el-input v-model="form.multiplier" />
+        <el-input v-model="form.multiplier" :style="style"/>
       </el-form-item>
       <el-form-item label="舍入方法" prop="roundType">
         <el-select :style="style" v-model="form.roundType" clearable placeholder="请选择">
@@ -142,7 +142,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="舍入精度" prop="roundPrecision">
-        <el-input v-model="form.roundPrecision" />
+        <el-input v-model="form.roundPrecision" :style="style"/>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">

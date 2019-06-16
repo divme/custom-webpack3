@@ -1,46 +1,47 @@
 <template>
-  <el-dialog :append-to-body="true" :visible.sync="dialog" :title="isAdd ? '新增' : '编辑'" width="500px">
-    <el-form ref="form" :model="form" :rules="rules" size="small" label-width="80px">
+  <el-dialog :append-to-body="true" :visible.sync="dialog" :title="isAdd ? '新增' : '编辑'" width="610px">
+    <el-form ref="form" :model="form" :rules="rules" size="small" label-width="120px">
       <el-form-item label="交易编号" prop="tradeNo">
-        <el-input v-model="form.tradeNo" style="width: 370px;"/>
+        <el-input v-model="form.tradeNo" :style="style"/>
       </el-form-item>
       <el-form-item label="工具代码" prop="instrumentCode">
-        <el-select v-model="form.instrumentCode" clearable placeholder="工具代码">
+        <el-select v-model="form.instrumentCode" :style="style" clearable placeholder="工具代码">
           <el-option v-for="item in instrumentData" :key="item.code" :label="item.code" :value="item.code"/>
         </el-select>
       </el-form-item>
       <el-form-item label="账户号码" prop="accountNo">
-        <el-select v-model="form.accountNo" clearable placeholder="账户号码">
+        <el-select v-model="form.accountNo" :style="style" clearable placeholder="账户号码">
           <el-option v-for="item in accountData" :key="item.accountNo" :label="item.accountNo" :value="item.accountNo"/>
         </el-select>
       </el-form-item>
       <el-form-item label="账户名称" prop="accountName">
-        <el-input v-model="form.accountName" style="width: 370px;" disabled />
+        <el-input v-model="form.accountName" :style="style" disabled />
       </el-form-item>
       <el-form-item label="买卖方向" prop="direction">
-        <el-select v-model="form.direction" clearable placeholder="买卖方向">
+        <el-select v-model="form.direction" :style="style" clearable placeholder="买卖方向">
           <el-option v-for="item in directionDicts" :key="item.id" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="开平仓" prop="openClose">
-        <el-select v-model="form.openClose" clearable placeholder="开平仓">
+        <el-select v-model="form.openClose" :style="style" clearable placeholder="开平仓">
           <el-option v-for="item in openCloseDicts" :key="item.id" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="成交时间" prop="tradeTime">
         <el-date-picker
           v-model="form.tradeTime"
+          :style="style"
           type="datetime"
           placeholder="请选择成交时间"/>
       </el-form-item>
       <el-form-item label="成交均价" prop="tradePrice">
-        <el-input v-model="form.tradePrice" style="width: 370px;"/>
+        <el-input v-model="form.tradePrice" :style="style"/>
       </el-form-item>
       <el-form-item label="成交数量" prop="quantity">
-        <el-input v-model="form.quantity" style="width: 100px;"/><span>( {{ dataObj[form.instrumentCode] || '单位' }} )</span>
+        <el-input v-model="form.quantity" :style="style"/><span>( {{ dataObj[form.instrumentCode] || '单位' }} )</span>
       </el-form-item>
       <el-form-item label="手续费" prop="fee">
-        <el-input v-model="form.fee" style="width: 370px;"/>
+        <el-input v-model="form.fee" :style="style"/>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -86,6 +87,7 @@ export default {
   data() {
     return {
       loading: false, dialog: false,
+      style: '180px', rStyle: '90px',
       rules: {
         tradeNo: [
           { required: true, message: '请填写交易编号', trigger: 'blur' }

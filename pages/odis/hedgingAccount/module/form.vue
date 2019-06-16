@@ -1,23 +1,23 @@
 <template>
-  <el-dialog :append-to-body="true" :visible.sync="dialog" :title="isAdd ? '新增' : '编辑'" width="500px">
-    <el-form ref="form" :model="form" :rules="rules" size="small" label-width="7em">
+  <el-dialog :append-to-body="true" :visible.sync="dialog" :title="isAdd ? '新增' : '编辑'" width="610px">
+    <el-form ref="form" :inline="true" :model="form" :rules="rules" size="small" label-width="120px">
       <el-form-item label="账户号码" prop="accountNo">
-        <el-input v-model="form.accountNo" style="width: 370px;"/>
+        <el-input v-model="form.accountNo" :style="style"/>
       </el-form-item>
       <el-form-item label="账户名称" prop="accountName">
-        <el-input v-model="form.accountName" style="width: 370px;"/>
+        <el-input v-model="form.accountName" :style="style"/>
       </el-form-item>
       <el-form-item label="账户所属">
-        <el-input v-model="form.accountOwner" style="width: 370px;"/>
+        <el-input v-model="form.accountOwner" :style="style"/>
       </el-form-item>
       <el-form-item label="账户密码">
-        <el-input v-model="form.accountPassword" type="password" autocomplete="off" />
+        <el-input v-model="form.accountPassword" :style="style" type="password" autocomplete="off" />
       </el-form-item>
       <el-form-item label="账户经纪商">
-        <el-input v-model="form.accountBank" style="width: 370px;" />
+        <el-input v-model="form.accountBank" :style="style" />
       </el-form-item>
       <el-form-item label="账户状态" prop="status">
-        <el-radio v-for="item in dicts" :key="item.id" v-model="form.status" :label="item.value">{{ item.label }}</el-radio>
+        <el-radio v-for="item in dicts" :key="item.id" v-model="form.status" :style="rStyle" :label="item.value">{{ item.label }}</el-radio>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -43,6 +43,7 @@ export default {
   data() {
     return {
       loading: false, dialog: false,
+      style: '180px', rStyle: '90px',
       dicts: [
         { id: 123, value: true, label: '可用' },
         { id: 321, value: false, label: '禁止' }
