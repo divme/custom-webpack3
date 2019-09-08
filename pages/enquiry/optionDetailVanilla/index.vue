@@ -47,22 +47,22 @@
           <el-tab-pane label="参数详情" name="one">
 
             <div class="title">参数期限</div>
-            <div class="setting-select setting-select-expire">
-              <choose v-model="expires" :data="expiresData" type="str" />
+            <div class="setting-select">
+              <choose v-model="expires" :data="expiresData" type="str" name="expires" />
             </div>
 
             <div class="title">是否年化</div>
-            <div class="setting-select setting-select-expire">
-              <choose v-model="ifAnnual" type="bool" />
+            <div class="setting-select">
+              <choose v-model="ifAnnual" type="bool" name="annual" />
             </div>
 
             <div class="title">选择执行价</div>
-            <div class="setting-select  setting-select-strikePrice">
+            <div class="setting-select">
               <el-slider v-model="strikePrice" :min="strikePriceMin" :max="strikePriceMax" :step="strikeStep" :marks="strikePriceMarks" />
             </div>
 
             <div class="title">选择参与率</div>
-            <div class="setting-select  setting-select-strikePrice">
+            <div class="setting-select">
               <el-slider v-model="participationRate" :min="participationRateMin" :max="participationRateMax" :step="participationRateStep" :marks="participationRateMarks" />
             </div>
           </el-tab-pane>
@@ -93,193 +93,195 @@
   </div>
 </template>
 <script>
-import { getProducts } from '@/api/enquiry'
-import { addChgClass, keepDecimals, toPercent, formatNumber } from '@/utils/tool'
-import Choose from '@/views/components/Choose'
-import Slider from '@/views/components/Slider'
-import OptionChart from '@/views/components/OptionChart'
-import OptionChartOne from '@/views/components/OptionChartOne'
-export default {
-  name: 'OptionDetail',
-  components: {
-    Choose,
-    Slider,
-    OptionChart,
-    OptionChartOne
-  },
-  data() {
-    return {
-      value1: 0,
-      // 参数/说明，当前tab
-      activeName: 'one',
-
-      // 根据标的和期权name返回的数据
-      data: [],
-
-      // 当前期限，期限数组
-      expires: 1, expiresData: [1, 2, 3, 4],
-      // 是否年化
-      ifAnnual: true,
-      // 名义本金
-      notionalPrincipal: 10000,
-
-      // 费用
-      fee: 0,
-      // 费率
-      // rate: 0.0005,
-      // 当前执行价，执行价数组
-      strikePrice: 0, strikePriceMin: 0, strikePriceMax: 0, strikeStep: 0.5, strikePriceData: [], strikePriceMarks: {},
-      // 当前参与率，参与率数组
-      participationRate: 100, participationRateMin: 0, participationRateMax: 200, participationRateStep: 1, participationRateData: [], participationRateMarks: {},
-
-      // 是否显示计算期权费的弹出框
-      ifCalcBox: false,
-
-      // 折线图数据数组，含 费率
-      chartData: [],
-      // 折线图数据数组，不含 费率
-      chartDataWithoutRate: []
-    }
-  },
-  computed: {
-    // 当前期权
-    curOption() {
-      return this.$store.state.option.curOption
+  import { getProducts } from '@/api/enquiry'
+  import { addChgClass, keepDecimals, toPercent, formatNumber } from '@/utils/tool'
+  import Choose from '@/views/components/Choose'
+  import Slider from '@/views/components/Slider'
+  import OptionChart from '@/views/components/OptionChart'
+  import OptionChartOne from '@/views/components/OptionChartOne'
+  export default {
+    name: 'OptionDetail',
+    components: {
+      Choose,
+      Slider,
+      OptionChart,
+      OptionChartOne
     },
-    // 当前标的
-    underlying() {
-      return this.$store.state.option.underlying
-    },
-    // 数字规则： 百分比的数据都是按照*100返回，处理数据需要注意
-    // 费率
-    rate() {
-      return this.fee * this.participationRate / 100
-    },
-    // 计算期权手续费
-    optionCost() {
-      if (this.ifAnnual) {
-        return formatNumber(this.notionalPrincipal * this.expires / 12 * this.rate)
-      } else {
-        return formatNumber(this.notionalPrincipal * this.rate)
-      }
-    },
-    // 当前产品信息, 由period 和 fee 唯一确定 根据此信息绘制
-    curData() {
-      const that = this
-      let index = -1
-      this.data.forEach(function(cur, curIndex) {
-        if (cur.strikePrice === that.strikePrice && cur.period === that.expires) {
-          index = curIndex
-          that.fee = cur.fee
-        }
-      })
-      index = index < 0 ? 0 : index
-      return index < 0 ? this.curData : this.data[index]
-    },
-    // chart 选项
-    chartOption() {
-      const that = this
+    data() {
       return {
-        strikeName: '执行价',
-        strikePrice: that.strikePrice,
-        outPrice: 2000,
-        outEarning: 0,
-        outName: '敲出价'
+        isCall: true,
+        // 参数/说明，当前tab
+        activeName: 'one',
+
+        // 根据标的和期权name返回的数据
+        data: [],
+
+        // 当前期限，期限数组
+        expires: 1, expiresData: [1, 2, 3, 4],
+        // 是否年化
+        ifAnnual: true,
+        // 名义本金
+        notionalPrincipal: 10000,
+
+        // 费用
+        fee: 0,
+        // 费率
+        // rate: 0.0005,
+        // 当前执行价，执行价数组
+        strikePrice: 0, strikePriceMin: 0, strikePriceMax: 0, strikeStep: 0.5, strikePriceData: [], strikePriceMarks: {},
+        // 当前参与率，参与率数组
+        participationRate: 100, participationRateMin: 0, participationRateMax: 200, participationRateStep: 1, participationRateData: [], participationRateMarks: {},
+
+        // 是否显示计算期权费的弹出框
+        ifCalcBox: false,
+
+        // 折线图数据数组，含 费率
+        chartData: [],
+        // 折线图数据数组，不含 费率
+        chartDataWithoutRate: []
       }
-    }
-  },
-  watch: {
-    curData() {
-      const gap = Math.max(10, this.rate * 2 + 5)
-      this.chartData = [
-        [this.strikePrice - gap, -1 * this.rate],
-        [this.strikePrice, -1 * this.rate],
-        [this.strikePrice + gap, gap - this.rate],
-        [this.strikePrice + gap, gap - this.rate]
-      ]
-      this.chartDataWithoutRate = [
-        [this.strikePrice - gap, 0],
-        [this.strikePrice, 0],
-        [this.strikePrice + gap, gap],
-        [this.strikePrice + gap, gap]
-      ]
-    }
-  },
-  created() {
-    this.$nextTick(() => {
-      getProducts({
-        code: this.underlying.code,
-        optionName: this.curOption.shortName
-      }).then(res => {
-        debugger
-        // 期权图需要 执行价 和 费率（fee*参与率）
-        // 另外期权图需要 存在对应的产品才能绘制，由 period 和 lExercisePrice 唯一确认产品
-        // 最终需要的数据：
-        //   this.curData： 当前产品的信息
-        //   this.data： 所有产品的信息
-        //   this.strike： 当前执行价；执行价集合
-        //   this.fee： 当前产品的费用
-        //   this.participationRateData ： 参与率集合
-
-        // 提取信息： 所有产品信息 执行价数组 参与率数组  期限数组
-        this.data = res.products
-        const sData = res.rExercisePrice
-        if (sData.length < 2) {
-          sData.unshift(0)
-          this.strikeStep = res.rExercisePrice[0]
+    },
+    computed: {
+      // 当前期权
+      curOption() {
+        return this.$store.state.option.curOption
+      },
+      // 当前标的
+      underlying() {
+        return this.$store.state.option.underlying
+      },
+      // 数字规则： 百分比的数据都是按照*100返回，处理数据需要注意
+      // 费率
+      rate() {
+        return this.fee * this.participationRate / 100
+      },
+      // 计算期权手续费
+      optionCost() {
+        if (this.ifAnnual) {
+          return formatNumber(this.notionalPrincipal * this.expires / 12 * this.rate)
+        } else {
+          return formatNumber(this.notionalPrincipal * this.rate)
         }
-        this.strikePriceData = sData
-        const length = this.strikePriceData.length
-        this.participationRateData = res.participate
-        const length1 = this.participationRateData.length
-        this.expiresData = res.period
-
-        // 执行价 参与率选择条所需信息
-        this.strikePriceMin = this.strikePriceData[0]
-        this.strikePriceMax = this.strikePriceData[length - 1]
-        this.participationRateMin = this.participationRateData[0]
-        this.participationRateMax = this.participationRateData[length1 - 1]
-        const start = this.strikePriceData[0]
-        const end = this.strikePriceData[this.strikePriceData.length - 1]
-        this.strikePriceMarks = {
-          [start]: start + '%',
-          [end]: end + '%'
+      },
+      // 当前产品信息, 由period 和 fee 唯一确定 根据此信息绘制
+      curData() {
+        const that = this
+        let index = -1
+        this.data.forEach(function(cur, curIndex) {
+          if (cur.strikePrice === that.strikePrice && cur.period === that.expires) {
+            index = curIndex
+            that.fee = cur.fee
+          }
+        })
+        index = index < 0 ? 0 : index
+        return index < 0 ? this.curData : this.data[index]
+      },
+      // chart 选项
+      chartOption() {
+        const that = this
+        return {
+          strikeName: '执行价',
+          strikePrice: that.strikePrice,
+          outPrice: 2000,
+          outEarning: 0,
+          outName: '敲出价'
         }
-        const start1 = this.participationRateData[0]
-        const end1 = this.participationRateData[this.participationRateData.length - 1]
-        this.participationRateMarks = {
-          [start1]: start1 + '%',
-          [end1]: end1 + '%'
+      }
+    },
+    watch: {
+      curData() {
+        const gap = Math.max(10, this.rate * 2 + 5)
+        if (this.isCall) {
+          this.chartData = [
+            [this.strikePrice - gap, -1 * this.rate],
+            [this.strikePrice, -1 * this.rate],
+            [this.strikePrice + gap, gap - this.rate]
+          ]
+          this.chartDataWithoutRate = [
+            [this.strikePrice - gap, 0],
+            [this.strikePrice, 0],
+            [this.strikePrice + gap, gap]
+          ]
+        } else {
+          this.chartData = [
+            [this.strikePrice - gap, gap - this.rate],
+            [this.strikePrice, -1 * this.rate],
+            [this.strikePrice + gap, -1 * this.rate]
+          ]
+          this.chartDataWithoutRate = [
+            [this.strikePrice - gap, gap],
+            [this.strikePrice, 0],
+            [this.strikePrice + gap, 0]
+          ]
         }
+      }
+    },
+    created() {
+      this.$nextTick(() => {
+        getProducts({
+          code: this.underlying.code,
+          optionName: this.curOption.shortName
+        }).then(res => {
+          // debugger
+          // 香草(欧式)期权图需要 执行价 和 费率（fee*参与率）
+          // 另外期权图需要 存在对应的产品才能绘制，由 period 和 lExercisePrice 唯一确认产品
+          // 最终需要的数据：
+          //   this.curData： 当前产品的信息
+          //   this.data： 所有产品的信息
+          //   this.strike： 当前执行价；执行价集合
+          //   this.fee： 当前产品的费用
+          //   this.participationRateData ： 参与率集合
 
-        // 默认取第一条产品数据，进行展示绘制
-        const cur = this.data[0]
-        this.fee = cur.fee
-        this.strikePrice = cur.rExercisePrice
-        this.expires = cur.period
+          // 提取信息： 所有产品信息 执行价数组 参与率数组  期限数组
+          this.data = res.products
+          const sData = res.rExercisePrice
+          if (sData.length < 2) {
+            sData.unshift(0)
+            this.strikeStep = res.rExercisePrice[0]
+          }
+          this.strikePriceData = sData
+          const length = this.strikePriceData.length
+          this.participationRateData = res.participate
+          const length1 = this.participationRateData.length
+          this.expiresData = res.period
+
+          // 执行价 参与率选择条所需信息: 最大最小值， 分段显示的信息
+          this.strikePriceMin = this.strikePriceData[0]
+          this.strikePriceMax = this.strikePriceData[length - 1]
+          this.participationRateMin = this.participationRateData[0]
+          this.participationRateMax = this.participationRateData[length1 - 1]
+          const start = this.strikePriceData[0]
+          const end = this.strikePriceData[this.strikePriceData.length - 1]
+          this.strikePriceMarks = {
+            [start]: start + '%',
+            [end]: end + '%'
+          }
+          const start1 = this.participationRateData[0]
+          const end1 = this.participationRateData[this.participationRateData.length - 1]
+          this.participationRateMarks = {
+            [start1]: start1 + '%',
+            1: '100%',
+            [end1]: end1 + '%'
+          }
+
+          // 默认取第一条产品数据，进行展示绘制
+          const cur = this.data[0]
+          this.fee = cur.fee
+          this.strikePrice = cur.rExercisePrice
+          this.expires = cur.period
+          this.isCall = cur.optionName.indexOf('涨') > -1
+        })
       })
-    })
-  },
-  methods: {
-    addChgClass,
-    keepDecimals,
-    toPercent,
-    chooseExpire(e) {
-      const target = e.target
-      const siblings = e.currentTarget.children
-      for (let i = 0, len = siblings.length; i < len; i++) {
-        siblings[i].classList.remove('active')
+    },
+    methods: {
+      addChgClass,
+      keepDecimals,
+      toPercent,
+      calcOptionCost() {
+        this.ifCalcBox = true
       }
-      target.classList.add('active')
-    },
-    chooseIfAnnual() {
-
-    },
-    calcOptionCost() {
-      this.ifCalcBox = true
     }
   }
-}
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
   .container{
@@ -340,21 +342,21 @@ export default {
   }
 
   .header{
-     height: .6rem;
-     padding-top: .1rem;
-     text-align: center;
-     border-bottom: 1px solid var(--text-dark);
-     background: var(--bg-light);
-     .header-name{
-       margin-bottom: 5px;
-       font-size: 16px;
-       color: var(--text-light);
-     }
+    height: .6rem;
+    padding-top: .1rem;
+    text-align: center;
+    border-bottom: 1px solid var(--text-dark);
+    background: var(--bg-light);
+    .header-name{
+      margin-bottom: 5px;
+      font-size: 16px;
+      color: var(--text-light);
+    }
     .header-eng{
       font-size: 12px;
       color: var(--text-dark);
     }
-   }
+  }
 
   .underlying-box{
     margin-bottom: .1rem;
