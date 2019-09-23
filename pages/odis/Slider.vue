@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import style from '@/styles/basic-variables-black.scss'
 export default {
   name: 'Bar',
   props: {

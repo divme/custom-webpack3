@@ -23,9 +23,9 @@ import Map from  'pages/cockpit/mapDemo.vue'
 
 
 export default [
-    { path:'/',
+    {
+        path:'/',
         component: Home,
-        redirect: 'vescatter',
         children:[
             {   path:'/echart',
                 component: Echart
