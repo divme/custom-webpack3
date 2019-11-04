@@ -10,9 +10,12 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 // 把公共部门提取出来
 // css类名混淆
 
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 
-module.exports = {
-    // entry: "./src/entry.js",
+const smp = new SpeedMeasurePlugin();
+
+YourWebpackConfig = {
+    // entry: "./pages/entry.js",
     entry:{
         build: "./src/entry.js",
         vendors: ['vue']
@@ -66,7 +69,7 @@ module.exports = {
             },
             {
                 test: /(\.jsx|\.js)$/,
-                loader: "babel-loader",
+                loader: "babel-loader?cacheDirectory=true",
                 exclude: /node_modules/
             },
             {
@@ -134,13 +137,20 @@ module.exports = {
             'components': path.resolve(__dirname, './components')
         }
     },
+    externals: {
+        Vue: 'vue/dist/vue.js'
+    },
     plugins:[
         new CleanWebpackPlugin(),
         new webpack.optimize.CommonsChunkPlugin({name: 'vendors', filename: 'vendors.js'}),
         new htmlWebpackPlugin({
             filename: 'index.html',
-            template: 'template.html'
+            template: 'template.html',
+            cache: true
         }),
         new ExtractTextPlugin("css/style.css")
     ]
 }
+
+module.exports = smp.wrap(YourWebpackConfig);
+
