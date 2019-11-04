@@ -12,9 +12,9 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 
 module.exports = {
-    // entry: "./pages/entry.js",
+    // entry: "./src/entry.js",
     entry:{
-        build: "./pages/entry.js",
+        build: "./src/entry.js",
         vendors: ['vue']
     },
     // output:   __dirname + "/build/bundle.js",
@@ -27,17 +27,36 @@ module.exports = {
         compress: true,
         port: 8082
     },
-    // devtool: "source-map",
+    devtool: "source-map",
     module:{
         rules: [
             // {
-            //     test: /\.css$/,
-            //     use: [{
-            //         loader: "style-loader"
-            //     }, {
-            //         loader: "css-loader"
-            //     }]
+            //     test: /\.s[ac]ss$/,
+            //     use: [
+            //         'style-loader',
+            //         'css-loader',
+            //         {
+            //             loader: 'scss-loader'
+            //         },
+            //     ],
             // },
+            // {
+            //     test:/\.s[ac]ss$/,
+            //     use: ExtractTextPlugin.extract({
+            //         fallback: "style-loader",
+            //         use: "scss-loader"
+            //     })
+            // },
+            {
+                test: /\.scss$/,
+                use: [{
+                    loader: "style-loader" // creates style nodes from JS strings
+                }, {
+                    loader: "css-loader" // translates CSS into CommonJS
+                }, {
+                    loader: "sass-loader" // compiles Sass to CSS
+                }]
+            },
             {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
@@ -52,6 +71,7 @@ module.exports = {
             },
             {
                 test: /\.json$/,
+
                 loader: 'json-loader'
             },
 
@@ -86,12 +106,14 @@ module.exports = {
                     name: './img/[name][hash:8].[ext]'
                  }
             },
-
             {
                 test: /\.vue$/,
                 loader: 'vue-loader'
             },
-            { test: /\.(ttf|eot|svg|woff|woff2)$/, use: 'url-loader' },
+            {
+                test: /\.(ttf|eot|svg|woff|woff2)$/,
+                use: 'url-loader'
+            },
             {
                 test: /\.(html)$/,
                 loader: 'html-loader',
@@ -108,7 +130,7 @@ module.exports = {
         extensions: ['.js', '.vue',  '.json'],
         alias: {
             'vue$': 'vue/dist/vue.js',
-            'pages': path.resolve(__dirname, './pages'),
+            '@': path.resolve(__dirname, './src'),
             'components': path.resolve(__dirname, './components')
         }
     },

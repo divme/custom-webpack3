@@ -40,12 +40,16 @@
 <script>
     import {mapState, mapMutations} from 'vuex';
 	export default{
-         name: 'start',
-		 data: function(){
+        name: 'Home',
+        data: function(){
          	return {
          		start: 'happy'
 			}
 		},
+        created() {
+            const that = this
+            // debugger
+        },
         computed:{
             ...mapState(['iscockpit', 'isvchart', 'isvue'])
         },

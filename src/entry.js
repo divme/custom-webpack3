@@ -1,9 +1,11 @@
 import Vue from "vue"
 import store from "./store"
 import VueRouter from 'vue-router'
-import routes from './router/router'
+import routes from './router'
 import Vcharts from 'v-charts'
+// import Entry from 'entry'
 
+import "./style/reset.scss";
 
 Vue.use(Vcharts);
 Vue.use(VueRouter);
@@ -17,4 +19,5 @@ new Vue({
     el: '#main',
     store,
     router
+    // render: (h) => h(Entry)
 });
