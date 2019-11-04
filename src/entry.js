@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import routes from './router'
 import Vcharts from 'v-charts'
 // import Entry from 'entry'
+import './components'
 
 import "./style/reset.scss";
 
