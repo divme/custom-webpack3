@@ -4,14 +4,14 @@ import VueRouter from 'vue-router'
 import routes from './router'
 import Vcharts from 'v-charts'
 // import Entry from 'entry'
+// import Home from 'Home.vue'
+import "./style/reset.scss"
 
-import "./style/reset.scss";
-
-Vue.use(Vcharts);
-Vue.use(VueRouter);
+Vue.use(Vcharts)
+Vue.use(VueRouter)
 
 const router = new VueRouter({
-    // mode:"history",
+    mode:"history",
     routes
 });
 
@@ -20,4 +20,4 @@ new Vue({
     store,
     router
     // render: (h) => h(Entry)
-});
+})
