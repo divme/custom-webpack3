@@ -3,7 +3,7 @@
 </template>
 <script>
 	export default{
-         name: 'start',
+         name: 'IamVue',
 		 data: function(){
          	return {
          		start: 'happy'

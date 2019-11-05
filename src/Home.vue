@@ -10,6 +10,7 @@
 
 
         <div class="main" v-if="iscockpit">
+            <iam-vue/>
             <router-link to="/container">驾驶舱</router-link>
             <router-link to="/timedata">2015年财务分析</router-link>
             <router-link to="/ranking">2015年营业收入机构排名</router-link>
@@ -39,8 +40,12 @@
 </template>
 <script>
     import {mapState, mapMutations} from 'vuex';
+//    import IamVue from '@/components/iamvue'
 	export default{
         name: 'Home',
+        components: {
+//            IamVue
+        },
         data: function(){
          	return {
          		start: 'happy'
