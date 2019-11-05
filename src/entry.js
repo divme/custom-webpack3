@@ -6,6 +6,7 @@ import Vcharts from 'v-charts'
 // import Entry from 'entry'
 // import Home from 'Home.vue'
 import "./style/reset.scss"
+import './components'
 
 Vue.use(Vcharts)
 Vue.use(VueRouter)
