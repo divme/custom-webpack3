@@ -7,7 +7,7 @@
     export default {
         data: function () {
             this.extend ={
-                legend:{    
+                legend:{
                     show: false
                 }
             };
@@ -31,7 +31,6 @@
 </script>
 
 <style scoped>
-
   .ve-line{
       margin: 10px auto;
   }

@@ -50,15 +50,27 @@ YourWebpackConfig = {
             //         use: "scss-loader"
             //     })
             // },
+            // {
+            //     test: /\.scss$/,
+            //     use: [{
+            //         loader: "style-loader" // creates style nodes from JS strings
+            //     }, {
+            //         loader: "css-loader" // translates CSS into CommonJS
+            //     }, {
+            //         loader: "sass-loader" // compiles Sass to CSS
+            //     }]
+            // },
             {
                 test: /\.scss$/,
-                use: [{
-                    loader: "style-loader" // creates style nodes from JS strings
-                }, {
-                    loader: "css-loader" // translates CSS into CommonJS
-                }, {
-                    loader: "sass-loader" // compiles Sass to CSS
-                }]
+                use: ExtractTextPlugin.extract({
+                    use: [{
+                        loader: "css-loader"
+                    }, {
+                        loader: "sass-loader"
+                    }],
+                    // use style-loader in development
+                    fallback: "style-loader"
+                })
             },
             {
                 test: /\.css$/,
@@ -112,6 +124,10 @@ YourWebpackConfig = {
             {
                 test: /\.vue$/,
                 loader: 'vue-loader'
+                // scss: ['vue-style-loader','css', 'sass'].join('!')
+                // loaders: [
+                //     'vue-loader', 'vue-style-loader','css', 'sass'
+                // ]
             },
             {
                 test: /\.(ttf|eot|svg|woff|woff2)$/,

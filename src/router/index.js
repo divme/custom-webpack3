@@ -1,4 +1,7 @@
-import Home from '@/home.vue'
+import Vue from "vue";
+import VueRouter from 'vue-router'
+
+Vue.use(VueRouter)
 
 const modules = require.context('./modules', false, /\.js$/)
 let routeArr = []
@@ -7,10 +10,10 @@ modules.keys().forEach((key) => {
     routeArr = routeArr.concat(cur.default)
 })
 
-export default [
+const routes = [
     {
         path: '/',
-        component: Home
+        component: () => import('@/home.vue')
     },
     {
         path: '/404',
@@ -22,3 +25,15 @@ export default [
     },
     ...routeArr
 ]
+
+
+const router = new VueRouter({
+    mode: "history",
+    routes
+})
+
+router.afterEach(() => {
+    console.log('dondsdse')
+})
+
+export default router
