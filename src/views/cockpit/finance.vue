@@ -113,7 +113,7 @@
             afterSetOption (echart){
 
                 echart.on('legendselectchanged', function(){
-                    console.log('I am legendselectchanged')
+                    console.log('财务报表分析: finance.vue', 'I am legendselectchanged')
                 });
                 echart.dispatchAction({
                     type: 'legendToggleSelect'

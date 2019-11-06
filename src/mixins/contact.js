@@ -3,7 +3,7 @@ export default {
         broadcast(componentName, eventName, params) {
             const that = this
             this.$children.forEach(child => {
-                const name = child.$option.name
+                const name = child.$options.name
                 if (name === componentName) {
                     child.$emit.apply(child, [eventName, params])
                 } else {
@@ -13,10 +13,10 @@ export default {
         },
         dispatch(componentsName, eventName, params) {
             let parent = this.$parent || this.$root
-            let name = parent && parent.$option.name
-            while (parent && (!name || name != componentsName)) {
+            let name = parent && parent.$options.name
+            while (parent && (!name || name !== componentsName)) {
                 parent = parent.$parent
-                if (parent) name = parent.$option.name
+                if (parent) name = parent.$options.name
             }
             if (parent) {
                 parent.$emit.call(parent, eventName, params)

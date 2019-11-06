@@ -28,12 +28,17 @@ const routes = [
 
 
 const router = new VueRouter({
-    mode: "history",
+    // mode: "history",
     routes
 })
 
+
+// 路由级别权限控制
+router.beforeEach((to, from, next) => {
+
+})
 router.afterEach(() => {
-    console.log('dondsdse')
+    console.log('router.afterEach', 'dondsdse')
 })
 
 export default router
