@@ -33,44 +33,20 @@ YourWebpackConfig = {
     devtool: "source-map",
     module:{
         rules: [
-            // {
-            //     test: /\.s[ac]ss$/,
-            //     use: [
-            //         'style-loader',
-            //         'css-loader',
-            //         {
-            //             loader: 'scss-loader'
-            //         },
-            //     ],
-            // },
-            // {
-            //     test:/\.s[ac]ss$/,
-            //     use: ExtractTextPlugin.extract({
-            //         fallback: "style-loader",
-            //         use: "scss-loader"
-            //     })
-            // },
-            // {
-            //     test: /\.scss$/,
-            //     use: [{
-            //         loader: "style-loader" // creates style nodes from JS strings
-            //     }, {
-            //         loader: "css-loader" // translates CSS into CommonJS
-            //     }, {
-            //         loader: "sass-loader" // compiles Sass to CSS
-            //     }]
-            // },
             {
-                test: /\.scss$/,
-                use: ExtractTextPlugin.extract({
-                    use: [{
-                        loader: "css-loader"
+                test: /\.s[ac]ss$/,
+                use: [
+                    {
+                        loader: 'vue-style-loader'
+                    },
+                    {
+                        loader: "style-loader" // creates style nodes from JS strings
                     }, {
-                        loader: "sass-loader"
-                    }],
-                    // use style-loader in development
-                    fallback: "style-loader"
-                })
+                        loader: "css-loader" // translates CSS into CommonJS
+                    }, {
+                        loader: "sass-loader" // compiles Sass to CSS
+                    }
+                ]
             },
             {
                 test: /\.css$/,
@@ -86,10 +62,37 @@ YourWebpackConfig = {
             },
             {
                 test: /\.json$/,
-
                 loader: 'json-loader'
             },
-
+            {
+                test: /\.(png|jpg|gif)$/,
+                loader: 'url-loader',
+                options: {
+                    limit: 8000,
+                    name: './img/[name][hash:8].[ext]'
+                 }
+            },
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader',
+                options: {
+                    loaders: {
+                        scss: 'style-loader!css-loader!sass-loader',
+                        sass: 'style-loader!css-loader!sass-loader?indentedSyntax'
+                    }
+                }
+            },
+            {
+                test: /\.(ttf|eot|svg|woff|woff2)$/,
+                use: 'url-loader'
+            },
+            {
+                test: /\.(html)$/,
+                loader: 'html-loader',
+                options: {
+                    attrs: [':data-src']
+                }
+            }
             // {
             //     test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
             //     loader: 'file-loader',
@@ -112,38 +115,13 @@ YourWebpackConfig = {
             //     loader: 'url-loader?limit=2000&name=./image/[name][hash].[ext]?',
             //
             // },
-
-            {
-                test: /\.(png|jpg|gif)$/,
-                loader: 'url-loader',
-                options: {
-                    limit: 8000,
-                    name: './img/[name][hash:8].[ext]'
-                 }
-            },
-            {
-                test: /\.vue$/,
-                loader: 'vue-loader'
-                // scss: ['vue-style-loader','css', 'sass'].join('!')
-                // loaders: [
-                //     'vue-loader', 'vue-style-loader','css', 'sass'
-                // ]
-            },
-            {
-                test: /\.(ttf|eot|svg|woff|woff2)$/,
-                use: 'url-loader'
-            },
-            {
-                test: /\.(html)$/,
-                loader: 'html-loader',
-                options: {
-                    attrs: [':data-src']
-                }
-            }
         ]
     },
     node:{
-        fs: 'empty'
+        fs: 'empty',
+        net:'empty',
+        tls:"empty",
+        child_process: 'empty'
     },
     resolve: {
         extensions: ['.js', '.vue',  '.json'],
@@ -152,6 +130,11 @@ YourWebpackConfig = {
             '@': path.resolve(__dirname, './src'),
             'components': path.resolve(__dirname, './components')
         }
+    },
+    resolveLoader: {
+        alias: {
+            'scss-loader': 'sass-loader'
+        },
     },
     externals: {
         Vue: 'vue/dist/vue.js'
