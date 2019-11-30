@@ -13,7 +13,7 @@ modules.keys().forEach((key) => {
 const routes = [
     {
         path: '/',
-        component: () => import('@/home.vue')
+        component: () => import('@/Home.vue')
     },
     {
         path: '/404',

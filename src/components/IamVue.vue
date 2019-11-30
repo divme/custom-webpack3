@@ -1,12 +1,12 @@
 <template>
-	<div>I am Vue,I am {{start}}</div>
+	<div>I am Vue,I feel {{start}}</div>
 </template>
 <script>
 	export default{
          name: 'IamVue',
 		 data: function(){
          	return {
-         		start: 'happy'
+         		start: 'very happy yes'
 			}
 		}
 	}
