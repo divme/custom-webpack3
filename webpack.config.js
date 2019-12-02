@@ -4,29 +4,6 @@
 // ^3.6.0: 3.X.X
 // *3.6.0: x.X.X @latest
 
-
-// webpack 核心概念： entry output loader plugin
-// module.exports = {
-//    module:{rules: [], noParse: {}}
-//    resolve:{}
-// }
-
-// 1. 性能检测
-//    1.1 slow-deps: npm install 时显示依赖大小，安装时间等
-//    1.2 webpack-bundle-analyzer webpack 打包结果分析，找到打包过程中的性能瓶颈
-// 2. 性能优化
-//    2.1 loader：缩小loader处理范围，减少不必要的编译过程
-//    2.2 插件 commonChunkPlugin 提取相同模块
-//    2.3 动态链接库：
-//       配置动态链接库：首先需要为动态链接库单独创建一个 Webpack 配置文件，比如叫做 webpack.vendor.config.js。该配置对象需要引入 DllPlugin，其中的 entry 指定了把哪些模块打包为 vendor。
-//
-//       打包动态链接库并生成 vendor 清单：使用该配置文件进行打包（示例中运行 npm run dll）。会生成一个 vendor.js 以及一个资源的清单，这个清单我们一般叫做 manifest.json，在内部每一个模块都会分配一个 ID。
-//
-//       将 vendor 连接到项目中：在工程的 webpack.config.js 中我们需要配置 DllReferencePlugin 来获取刚刚打包出来的模块清单。这相当于工程代码和 vendor 连接的过程。
-//    2.4 HappyPack 配置多进程; 打包过程中的多进程
-//    2.5 UglifyjsWebpackPlugin 压缩过程中多进程
-
-
 const path = require('path');
 const webpack = require('webpack');
 
