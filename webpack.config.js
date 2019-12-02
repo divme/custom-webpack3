@@ -78,7 +78,7 @@ const webpackUglifyJsPlugin = require('webpack-parallel-uglify-plugin');
 
 // ------------------------------性能检测与优化-----------------------------------------------
 // 1. 性能检测
-//    1.1 slow-deps: npm install 时显示依赖大小，安装时间等
+//    1.1 slow-deps: build 时显示依赖大小，安装时间等
 //    1.2 webpack-bundle-analyzer webpack 打包结果分析，找到打包过程中的性能瓶颈
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // 2. 性能优化
@@ -357,7 +357,7 @@ webpackConfig = {
     ]
 }
 
-// 显化打包性能
+// build 时显化打包性能
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const smp = new SpeedMeasurePlugin();
 module.exports = smp.wrap(webpackConfig);
