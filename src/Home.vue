@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div id="home" class="container">
         <keep-alive>
             <div class="tabbox">
                 <div @click="cockpit" :class="{active: iscockpit}">cockpit</div>
@@ -11,7 +11,7 @@
 
         <div class="main" v-if="iscockpit">
             <iam-vue/>
-            <router-link to="/container">驾驶舱</router-link>
+            <router-link to="/container">驾驶舱omo</router-link>
             <router-link to="/timedata">2015年财务分析</router-link>
             <router-link to="/ranking">2015年营业收入机构排名</router-link>
             <router-link to="/finance">2015年财务分析(柱状图)</router-link>
@@ -53,7 +53,8 @@
 		},
         created() {
             const that = this
-            // debugger
+            debugger
+            console.log(123)
         },
         computed:{
             ...mapState(['iscockpit', 'isvchart', 'isvue'])
@@ -73,7 +74,7 @@
         }
 	}
 </script>
-<style scoped>
+<style scoped lang="scss">
     a{
     	 display: block;
 	     height: 45px;
@@ -124,5 +125,12 @@
 
     .main{
         margin: 10px 0;
+    }
+</style>
+
+<style>
+    #home{
+        display: flex;
+        white-space: normal;
     }
 </style>

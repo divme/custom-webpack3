@@ -57,13 +57,10 @@ const webpackUglifyJsPlugin = require('webpack-parallel-uglify-plugin');
 // 1. 性能检测
 //    1.1 slow-deps: build 时显示依赖大小，安装时间等
 //    1.2 webpack-bundle-analyzer webpack 打包结果分析，找到打包过程中的性能瓶颈
-const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // 2. 性能优化
 //    2.1 loader：缩小loader处理范围，减少不必要的编译过程
-//    2.2 提取公共模块到独立文件
-//          webpack3 ： 插件 commonChunkPlugin
-//          webpack4 ： 插件 splitChunkPlugin
+//    2.2 插件 commonChunkPlugin 提取相同模块
 //    2.3 动态链接库：
 //       配置动态链接库：首先需要为动态链接库单独创建一个 Webpack 配置文件，比如叫做 webpack.vendor.config.js。该配置对象需要引入 DllPlugin，其中的 entry 指定了把哪些模块打包为 vendor。
 //
@@ -72,11 +69,10 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 //       将 vendor 连接到项目中：在工程的 webpack.config.js 中我们需要配置 DllReferencePlugin 来获取刚刚打包出来的模块清单。这相当于工程代码和 vendor 连接的过程。
 //    2.4 HappyPack 配置多进程; 打包过程中的多进程
 //    2.5 UglifyjsWebpackPlugin 压缩过程中多进程
-//    2.6 jquery lodash 等较大的包，用cdn
 
 
 // ------------------------------其他-----------------------------------------------
-// 为 output 文件添加 hash
+// 为 output 文件添加hash
 // module.rules 增加 include、exclude 选项圈定缩小 loader 处理范围
 // css loader、js loader 在 options 中启动 sourceMap， 方便调试
 // webpack-merge 合并基础配置 和 环境配置，y must webpack-merge
@@ -86,24 +82,23 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 // css类名混淆
 
 process.traceDeprecation = true
-const devServer = {
-    contentBase: path.join(__dirname, 'build'),
-    host: 'localhost',
-    port: 8082,
-    compress: true
-}
 webpackConfig = {
+    // entry: "./pages/entry.js",
     entry:{
-        omobuild: "./src/entry.js",
+        build: "./src/entry.js",
         vendors: ['vue']
     },
+    // output:   __dirname + "/build/bundle.js",
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: '[name].[hash].js'
     },
-    devtool: "cheap-module-eval-source-map",
-    cache: true,
-    devServer,
+    devtool: "source-map",
+    devServer: {
+        contentBase: path.join(__dirname, 'build'),
+        compress: true,
+        port: 8082
+    },
     module:{
         rules: [
             // vue loader
@@ -112,91 +107,13 @@ webpackConfig = {
                 loader: 'vue-loader',
                 options: {
                     loaders: {
-                        scss: 'vue-style-loader!css-loader!sass-loader',
-                        sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
+                        scss: 'style-loader!css-loader!sass-loader',
+                        sass: 'style-loader!css-loader!sass-loader?indentedSyntax'
                     }
                 }
             },
 
-            // css loader type2： css/scss 一个配置，但是没单独提取，加了兼容性处理
-            {
-                test: /\.(sc|c|sa)ss$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: "vue-style-loader",
-                    use: [
-                        // "style-loader",
-                        {
-                            loader:"css-loader",
-                            options:{ sourceMap: true }
-                        },
-                        {
-                            loader:"postcss-loader",
-                            options: {
-                                ident: "postcss",
-                                sourceMap: true,
-                                plugins: loader => [
-                                    require('autoprefixer')()
-                                    // 这里可以使用更多配置，如上面提到的 postcss-cssnext 等
-                                    // require('postcss-cssnext')()
-                                ]
-                            }
-                        },
-                        {
-                            loader:"sass-loader",
-                            options:{ sourceMap: true }
-                        }
-                    ]
-                })
-            },
-
-            // js、jsx 文件loader
-            {
-                test: /(\.jsx|\.js)$/,
-                // loader: "babel-loader?cacheDirectory=true",
-                use: [
-                    // 在babel-loader之前添加thread-loader。
-                    { loader: "thread-loader" },
-                    {
-                        loader: "babel-loader",
-                        options: {
-                            cacheDirectory: true
-                        }
-                    }
-                ],
-                include: [path.resolve(__dirname,'/node_modules/element-ui/src'), path.resolve(__dirname,'/node_modules/element-ui/packages')],
-                exclude: /node_modules/
-            },
-
-            // 其他 html 图片 字体 json 等
-            {
-                test: /\.(html)$/,
-                loader: 'html-loader',
-                options: {
-                    attrs: [':data-src']
-                }
-            },
-            {
-                test: /\.(png|jpg|gif)$/,
-                loader: 'url-loader',
-                options: {
-                    limit: 8000,
-                    name: './img/[name][hash:8].[ext]'
-                }
-            },
-            {
-                test: /\.(ttf|eot|svg|woff|woff2)$/,
-                use: 'url-loader'
-            },
-            {
-                test: /\.json$/,
-                loader: 'json-loader'
-            },
-
-
-
-            // 候补未启用 loader： 图片处理，优化图片大小
-
-            // css loader type1： css / scss 分别配置，css 单独提取
+            // css loader type1
             // {
             //     test: /\.s[ac]ss$/,
             //     // test: /\.(sc|c|sa)ss$/,
@@ -226,29 +143,90 @@ webpackConfig = {
             //     })
             // },
 
-            // css loader type3: css/ scss 一个配置，并且单独提取出来
+            // css loader typoe3
+            {
+                test: /\.(sc|c|sa)ss$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: [
+                        {
+                            loader: "css-loader",
+                            options: {
+                                sourceMap: true
+                            }
+                        },
+                        {
+                            loader: "sass-loader" // compiles Sass to CSS
+                        }
+                    ]
+                })
+            },
+
+            // css loader typoe2
             // {
             //     test: /\.(sc|c|sa)ss$/,
-            //     use: ExtractTextPlugin.extract({
-            //         fallback: "style-loader",
-            //         use: [
-            //             {
-            //                 loader: "css-loader",
-            //                 options: {
-            //                   sourceMap: true
-            //                 }
-            //             },
-            //             {
-            //                 loader: "sass-loader", // compiles Sass to CSS
-            //                 options: {
-            //                     sourceMap: true
-            //                 }
+            //     use: [
+            //         "style-loader",
+            //         {
+            //             loader:"css-loader",
+            //             options:{ sourceMap: true }
+            //         },
+            //         {
+            //             loader:"postcss-loader",
+            //             options: {
+            //                 ident: "postcss",
+            //                 sourceMap: true,
+            //                 plugins: loader => [
+            //                     require('autoprefixer')(),
+            //                     // 这里可以使用更多配置，如上面提到的 postcss-cssnext 等
+            //                     // require('postcss-cssnext')()
+            //                 ]
             //             }
-            //         ]
-            //     })
+            //         },
+            //         {
+            //             loader:"sass-loader",
+            //             options:{ sourceMap: true }
+            //         },
+            //     ]
             // },
 
-            // 对图片增加图片压缩loader
+            // js、jsx 文件loader
+            {
+                test: /(\.jsx|\.js)$/,
+                loader: "babel-loader?cacheDirectory=true",
+                include: [path.resolve(__dirname,'/node_modules/element-ui/src'), path.resolve(__dirname,'/node_modules/element-ui/packages')],
+                exclude: /node_modules/
+            },
+
+            // 其他 html 图片 字体 json 等
+            {
+                test: /\.(html)$/,
+                loader: 'html-loader',
+                options: {
+                    attrs: [':data-src']
+                }
+            },
+            {
+                test: /\.(png|jpg|gif)$/,
+                loader: 'url-loader',
+                options: {
+                    limit: 8000,
+                    name: './img/[name][hash:8].[ext]'
+                }
+            },
+            {
+                test: /\.(ttf|eot|svg|woff|woff2)$/,
+                use: 'url-loader'
+            },
+            {
+                test: /\.json$/,
+                loader: 'json-loader'
+            }
+
+
+
+            // 候补 loader： 图片处理，优化图片大小
+
             // {
             //     test: /\.(png|svg|jpg|jpeg|gif)$/,
             //         include: [path.resolve(__dirname, 'src/')],
@@ -273,12 +251,24 @@ webpackConfig = {
             // {
             //     test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
             //     loader: 'file-loader',
+            //
+            // },
+
+            // {
+            //     test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+            //     loader: 'file-loader',
             //     options: {
             //         outputPath: "images/",
             //         useRelativePath: true,
             //         name: "[name].[hash:8].[ext]",//8表示截取 hash 的长度,ext表示原来是啥类型，就是啥类型
             //         limit: 10000
             //     }
+            // },
+
+            // {
+            //     test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+            //     loader: 'url-loader?limit=2000&name=./image/[name][hash].[ext]?',
+            //
             // },
         ]
     },
@@ -298,7 +288,7 @@ webpackConfig = {
     },
     resolveLoader: {
         alias: {
-            // 'scss-loader': 'sass-loader'
+            'scss-loader': 'sass-loader'
         },
     },
     externals: {
@@ -319,16 +309,10 @@ webpackConfig = {
             }
         }),
 
-        // 性能检测与优化：显示各个资源的大小比例，现在用smp，暂时不用
+        // 检测与优化
         // new BundleAnalyzerPlugin(),
 
-        // 单独提取 css
-        new ExtractTextPlugin("css/style.css"),
-        // 压缩css文件
-        new OptimizeCssAssetsPlugin(),
-
-
-        // 压缩 js 文件: 未生效
+        // 压缩 js 文件
         // new UglifyJsPlugin({
         //     cache: true, parallel: true, sourceMap: true // 缓存，并行压缩，sourceMap
         // }),
@@ -341,20 +325,17 @@ webpackConfig = {
             workerCount: '',
             sourceMap: false
         }),
-
-        // webpack 内置插件
-        // 压缩js: 这个插件严重影响热更速度
-        // new webpack.optimize.UglifyJsPlugin({
-        //     compress: {
-        //         warnings: false
-        //     }
-        // }),
-        // 提取公共资源
+        // 单独提取 css
+        new ExtractTextPlugin("css/style.css"),
+        // 压缩css文件
+        new OptimizeCssAssetsPlugin(),
+        // webpack 内置插件， 提取公共部分
         new webpack.optimize.CommonsChunkPlugin({name: 'vendors', filename: 'vendors.js'})
     ]
 }
 
 // build 时显化打包性能
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const smp = new SpeedMeasurePlugin();
 module.exports = smp.wrap(webpackConfig);
 

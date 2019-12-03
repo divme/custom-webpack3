@@ -150,6 +150,7 @@
         },
         mounted: function(){
             const d = Math.random();
+            console.log(d)
             if(d > 0.5){
                 this.directives.vif = false;
             }
@@ -161,6 +162,7 @@
         },
         methods:{
             changepick(){
+                debugger
                this.pick = 'picks'
             },
             changea(){

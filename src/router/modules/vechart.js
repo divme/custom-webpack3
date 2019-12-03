@@ -1,27 +1,21 @@
-import Echart from '@/views/vechart/echartDemo.vue'
-import UseEchart from '@/views/vechart/echartUse.vue'
-import VeLine from '@/views/vechart/vechartLine.vue'
-import VeScatter from '@/views/vechart/vechartScatter.vue'
-import VeMap from '@/views/vechart/vechartMap.vue'
-
 export default [
     {   path:'/echart',
-        component: Echart
+        component: () => import('@/views/vechart/echartDemo.vue')
     },
     {
         path:'/useechart',
-        component: UseEchart
+        component: () => import('@/views/vechart/echartUse.vue')
     },
     {
         path:'/veline',
-        component: VeLine
+        component: () => import('@/views/vechart/vechartLine.vue')
     },
     {
         path:'/vescatter',
-        component: VeScatter
+        component: () => import('@/views/vechart/vechartScatter.vue')
     },
     {
         path:'/vemap',
-        component: VeMap
+        component: () => import('@/views/vechart/vechartMap.vue')
     }
 ]

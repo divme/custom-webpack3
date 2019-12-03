@@ -1,29 +1,23 @@
-import VueBasic from '@/views/vue/basic.vue'
-import VueSlotFather from '@/views/vue/thethreeattrs/slotFather.vue'
-import VuePropFather from '@/views/vue/thethreeattrs/propFather.vue'
-import VueEventFather from '@/views/vue/thethreeattrs/eventFather.vue'
-import VueStore from '@/views/vue/store.vue'
-
 
 export default [
     {
         path:'/vuebasic',
-        component: VueBasic
+        component: () => import('@/views/vue/basic.vue')
     },
     {
         path:'/vueslotfather',
-        component: VueSlotFather
+        component: () => import('@/views/vue/thethreeattrs/slotFather.vue')
     },
     {
         path:'/vuepropfather',
-        component: VuePropFather
+        component: () => import('@/views/vue/thethreeattrs/propFather.vue')
     },
     {
         path:'/vueeventfather',
-        component: VueEventFather
+        component: () => import('@/views/vue/thethreeattrs/eventFather.vue')
     },
     {
         path:'/vuestore',
-        component: VueStore
+        component: () => import('@/views/vue/store.vue')
     }
 ]
