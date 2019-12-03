@@ -95,7 +95,7 @@ const devServer = {
 webpackConfig = {
     entry:{
         omobuild: "./src/entry.js",
-        vendors: ['vue']
+        vendors: ['vue', 'echarts', 'v-charts']
     },
     output: {
         path: path.resolve(__dirname, 'build'),
