@@ -15,75 +15,25 @@ const htmlWebpackPlugin = require('html-webpack-plugin');
 
 
 // --------------------- (s)css 文件处理 ---------------------------------
-// loader:
-//   css-loader: 处理 css 文件，使其能在 js 文件内引用；可开启sourceMap： true
-//   style-loader: 用于将 css 以内联方式注入到 index.html 的 head 内
-//   sass-loader node-sass： 用于处理 sass 文件
-//   postcss-loader autoprefixer: css 预处理，为css属性添加前缀；浏览器兼容性处理
-
-// 插件
-// 单独提取出css
-//   webpack1~3 使用 extract-text-webpack-plugin
-//   webpack4 之后改用 mini-css-extract-plugin
+// 提取合并 css 文件
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 // 压缩 css 文件
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 // -----------------------------js文件处理-----------------------------------------
-// loader
-
-
-// 插件
 // 压缩js 文件: 使用失败
-// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 // 利用webpack内置uglify插件，开启多线程压缩
 const webpackUglifyJsPlugin = require('webpack-parallel-uglify-plugin');
 
-// -----------------------------vue文件处理-----------------------------------------
-// loader
-// vue-loader: 会解析 .vue 文件，提取每个语言块，如有必要会通过其它 loader 处理，最后将他们组装成一个 ES Module，它默认导出一个 Vue.js 组件选项的对象。
-// vue-template-compiler: 会接解析 template 标签中的内容，预处理为 JS 渲染函数，并最终注入到从 <script> 导出的组件中。
-
-// 1. vue 内 scss 文件的加载
-
-
-// -----------------------------图片、字体文件处理-----------------------------------------
-// loader
-//    file-loader： 处理文件导入的问题, 字体处理，图片
-//    url-loader： 类似file-loader， 但是可以将 url 地址对应的文件，打包成 base64 的 DataURL，提高访问效率
-//    image-webpack-loader: 图片压缩loader
 
 // ------------------------------性能检测与优化-----------------------------------------------
-// 1. 性能检测
-//    1.1 slow-deps: build 时显示依赖大小，安装时间等
-//    1.2 webpack-bundle-analyzer webpack 打包结果分析，找到打包过程中的性能瓶颈
+//    1.1 slow-deps: npm install 时显示依赖大小，安装时间等
+//    1.2 speed-measure-webpack-plugin: npm run build 时可视化编译耗时分布等
+//    1.3 webpack-bundle-analyzer webpack 打包结果分析，找到打包过程中的性能瓶颈
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-// 2. 性能优化
-//    2.1 loader：缩小loader处理范围，减少不必要的编译过程
-//    2.2 提取公共模块到独立文件
-//          webpack3 ： 插件 commonChunkPlugin
-//          webpack4 ： 插件 splitChunkPlugin
-//    2.3 动态链接库：
-//       配置动态链接库：首先需要为动态链接库单独创建一个 Webpack 配置文件，比如叫做 webpack.vendor.config.js。该配置对象需要引入 DllPlugin，其中的 entry 指定了把哪些模块打包为 vendor。
-//
-//       打包动态链接库并生成 vendor 清单：使用该配置文件进行打包（示例中运行 npm run dll）。会生成一个 vendor.js 以及一个资源的清单，这个清单我们一般叫做 manifest.json，在内部每一个模块都会分配一个 ID。
-//
-//       将 vendor 连接到项目中：在工程的 webpack.config.js 中我们需要配置 DllReferencePlugin 来获取刚刚打包出来的模块清单。这相当于工程代码和 vendor 连接的过程。
-//    2.4 HappyPack 配置多进程; 打包过程中的多进程
-//    2.5 UglifyjsWebpackPlugin 压缩过程中多进程
-//    2.6 jquery lodash 等较大的包，用cdn
 
-
-// ------------------------------其他-----------------------------------------------
-// 为 output 文件添加 hash
-// module.rules 增加 include、exclude 选项圈定缩小 loader 处理范围
-// css loader、js loader 在 options 中启动 sourceMap， 方便调试
-// webpack-merge 合并基础配置 和 环境配置，y must webpack-merge
-
-// 单独提取出图片
-// 把公共部门提取出来
-// css类名混淆
 
 process.traceDeprecation = true
 const devServer = {
@@ -290,6 +240,7 @@ webpackConfig = {
     },
     resolve: {
         extensions: ['.js', '.vue',  '.json'],
+        modules: [path.resolve(__dirname, "src"), 'node_modules'],
         alias: {
             'vue$': 'vue/dist/vue.js',
             '@': path.resolve(__dirname, './src'),
@@ -329,26 +280,34 @@ webpackConfig = {
 
 
         // 压缩 js 文件: 未生效
-        // new UglifyJsPlugin({
-        //     cache: true, parallel: true, sourceMap: true // 缓存，并行压缩，sourceMap
-        // }),
-        new webpackUglifyJsPlugin({
-            uglifyJS: {},
-            test: /.js$/g,
-            include: [],
-            exclude: [],
-            cacheDir: '',
-            workerCount: '',
-            sourceMap: false
+        new UglifyJsPlugin({
+            cache: true, parallel: true, sourceMap: true // 缓存，并行压缩，sourceMap
         }),
 
+
+        // 结合webpack自带得压缩插件多线程压缩
+        // 这个也严重影响打包/热更得速度
+        // new webpackUglifyJsPlugin({
+        //     cacheDir: '.cache/',
+        //     uglifyJS:{
+        //         output: {
+        //             comments: false
+        //         }
+        //     }
+        // }),
+
         // webpack 内置插件
-        // 压缩js: 这个插件严重影响热更速度
+        // 压缩js: 这个插件严重影响热更速度，原来不到1s，现在6s多
         // new webpack.optimize.UglifyJsPlugin({
+        //     cache: true,
+        //     output: {
+        //         comments: false
+        //     },
         //     compress: {
         //         warnings: false
         //     }
         // }),
+
         // 提取公共资源
         new webpack.optimize.CommonsChunkPlugin({name: 'vendors', filename: 'vendors.js'})
     ]
