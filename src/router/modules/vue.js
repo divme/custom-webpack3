@@ -1,8 +1,9 @@
+import basic from '@/views/vue/basic.vue'
 
 export default [
     {
         path:'/vuebasic',
-        component: () => import('@/views/vue/basic.vue')
+        component: basic
     },
     {
         path:'/vueslotfather',

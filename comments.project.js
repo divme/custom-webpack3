@@ -18,3 +18,9 @@
 // git branch -r -D origin/branchname 删除本地的远程分支信息： 本地分支存在，远程分支也存在，但是本地不再有此远程分支的信息
 // git branch --set-upstream-to origin/branchname  将当前分支关联到远程分支
 
+// 二、npm
+//     npm: --save 可以简写为-S, --save-dev可以简写为-D.
+//         3.6.0: 3.6.0
+//         ~3.6.0: 3.6.X
+//         ^3.6.0: 3.X.X
+//         *3.6.0: x.X.X @latest

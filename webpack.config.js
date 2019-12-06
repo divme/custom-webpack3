@@ -1,8 +1,3 @@
-// npm: --save 可以简写为-S, --save-dev可以简写为-D.
-// 3.6.0: 3.6.0
-// ~3.6.0: 3.6.X
-// ^3.6.0: 3.X.X
-// *3.6.0: x.X.X @latest
 
 const path = require('path');
 const webpack = require('webpack');
@@ -13,6 +8,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 // 自动生成html，并动态引入打包后的css、js等文件
 const htmlWebpackPlugin = require('html-webpack-plugin');
 
+// --------------------- vue 文件处理 ---------------------------------
+// const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 // --------------------- (s)css 文件处理 ---------------------------------
 // 提取合并 css 文件
@@ -28,12 +25,15 @@ const webpackUglifyJsPlugin = require('webpack-parallel-uglify-plugin');
 
 
 // ------------------------------性能检测与优化-----------------------------------------------
+// 1. 检测
 //    1.1 slow-deps: npm install 时显示依赖大小，安装时间等
 //    1.2 speed-measure-webpack-plugin: npm run build 时可视化编译耗时分布等
 //    1.3 webpack-bundle-analyzer webpack 打包结果分析，找到打包过程中的性能瓶颈
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-
+// 2. 优化
+//    2.1 缓存中间编译过程
+const HardSourceWebpackPlugin = require("hard-source-webpack-plugin")
 
 process.traceDeprecation = true
 const devServer = {
@@ -44,12 +44,12 @@ const devServer = {
 }
 webpackConfig = {
     entry:{
-        omobuild: "./src/entry.js",
+        build: "./src/entry.js",
         vendors: ['vue', 'echarts', 'v-charts']
     },
     output: {
         path: path.resolve(__dirname, 'build'),
-        filename: '[name].[hash].js'
+        filename: 'src/[name].[hash].js'
     },
     devtool: "cheap-module-eval-source-map",
     cache: true,
@@ -272,6 +272,11 @@ webpackConfig = {
 
         // 性能检测与优化：显示各个资源的大小比例，现在用smp，暂时不用
         // new BundleAnalyzerPlugin(),
+        // 缓存编译结果：严重拖慢
+        // new HardSourceWebpackPlugin(),
+
+        // 加载vue文件时，应用其他匹配规则
+        // new VueLoaderPlugin(),
 
         // 单独提取 css
         new ExtractTextPlugin("css/style.css"),
@@ -280,10 +285,9 @@ webpackConfig = {
 
 
         // 压缩 js 文件: 未生效
-        new UglifyJsPlugin({
-            cache: true, parallel: true, sourceMap: true // 缓存，并行压缩，sourceMap
-        }),
-
+        // new UglifyJsPlugin({
+        //     cache: true, parallel: true, sourceMap: true // 缓存，并行压缩，sourceMap
+        // }),
 
         // 结合webpack自带得压缩插件多线程压缩
         // 这个也严重影响打包/热更得速度
@@ -309,7 +313,7 @@ webpackConfig = {
         // }),
 
         // 提取公共资源
-        new webpack.optimize.CommonsChunkPlugin({name: 'vendors', filename: 'vendors.js'})
+        new webpack.optimize.CommonsChunkPlugin({name: 'vendors', filename: 'src/vendors.js'})
     ]
 }
 

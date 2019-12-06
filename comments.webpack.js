@@ -15,6 +15,8 @@
 //    2.2. vue style标签内，使用scss，修复好的方法
 //    2.3. js打包到同一个文件夹下
 //    2.4. css 文件： extract-text-webpack-plugin 替代style-loader
+//    2.5  .vue 文件里的css 没提取出来到单独的css文件
+//    2.6  js文件没有打包到同一个目录
 
 // 3、性能检测与优化
 // 3.1. 性能检测
@@ -40,6 +42,7 @@
 //          webpack-parallel-uglify-plugin： 结合webpack自带，启用多线程，打包 热更都慢
 //          uglifyjs-webpack-plugin： 多线程压缩，打包 热更慢
 //    3.2.6 jquery lodash 等较大的包，用cdn, 外部引用
+//    3.2.7 hard-source-webpack-plugin：缓存编译过程中的中间结果
 
 //  其他问题
 //    为 output 文件添加 hash

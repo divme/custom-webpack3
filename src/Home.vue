@@ -12,7 +12,7 @@
         <div class="main" v-if="iscockpit">
             <iam-vue/>
             <router-link to="/container">驾驶舱omo</router-link>
-            <router-link to="/timedata">2015年财务分析omo</router-link>
+            <router-link to="/timedata">2015年财务分析</router-link>
             <router-link to="/ranking">2015年营业收入机构排名</router-link>
             <router-link to="/finance">2015年财务分析(柱状图)</router-link>
             <router-link to="/performance">2015年部门绩效收入(饼图)</router-link>
@@ -53,7 +53,6 @@
 		},
         created() {
             const that = this
-            debugger
             console.log(123)
         },
         computed:{
@@ -130,7 +129,7 @@
 
 <style>
     #home{
-        display: flex;
+        /*display: flex;*/
         white-space: normal;
     }
 </style>
