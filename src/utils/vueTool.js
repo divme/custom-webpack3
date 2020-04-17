@@ -1,7 +1,7 @@
 function findComponentUpward(context, componentName) {
     let parent = context.$parent || context.$root
     let name = parent && parent.$options.name
-    while (parent && (!name && name !== componentName)) {
+    while (parent && (!name || name !== componentName)) {
         parent = parent.$parent
         if (parent) name = parent.$options.name
     }

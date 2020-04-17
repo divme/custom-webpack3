@@ -1,32 +1,42 @@
-// ---------------------------------------Node in project------------------------------------
-// 1. webpack 路径说明
-//   1.1 模块路径 node_modules
-//      import 'vue'
-//      import 'vue/lib/profile'
-//   1.2 相对路径
-//      import './router'
-//      import '../router'
-//   1.3 绝对路径
-//     import '/router'
-// 补充：
-// require() 中的路径是相对于它在的文件，跟工作目录\执行命令目录无关
-// __dirname: 总是返回所在的 js 所在文件夹的绝对路径
-// __filename: 总是返回所在的 js 的绝对路径
-// process.cwd(): 总是返回运行 node 命令时所在的文件夹的绝对路径
-// path.resolve('./') 返回绝对路径；如果本身不是绝对路径，就根据执行命令的工作目录确定绝对路径，所以path.resolve最好直接返回绝对路径；
-// 在require（）中时例外，总是所在文件的相对路径；
-// 2、 当前问题
-//    2.1. uglify-webpack-plugin 报错： es6 语法不解析？
-//         webpack-parallel-uglify-plugin: 利用webpack内置uglify功能开启多线程打包，没看出来
-//    2.2. vue style标签内，使用scss，修复好的方法
-//    2.3. js打包到同一个文件夹下
-//    2.4. css 文件： extract-text-webpack-plugin 替代style-loader
-//    2.5  .vue 文件里的css 没提取出来到单独的css文件
-//    2.6  js文件没有打包到同一个目录
-
+// -----------------------------------常用配置说明 -----------------------------
+// mode： development || production
+// devtool：source-map 的种类
+// entry
+// output
+// devServer: 本地服务，可配置解决跨域，三种常用方式
+//
+// optimization： { splitChunks： {}}
+// module: {
+//    noParse: /jquery/ // 不解析 jquery 的依赖库，节省时间
+//    rules: [
+//         vue: 支持 scss | jsx | css 引入
+//         js： 语法 pollyfill vue-jsx等
+//         css: 测试: 支持scss css import|
+//         img：css 内引用， html内引用
+//         font file  html
+//    ]
+// }
+// plugin: [
+//    基本
+//    HtmlWebpackPlugin | CleanWebpackPlugin | CopyWebpackPlugin
+//    webpack.ProvidePlugin | webpack.DefinePlugin |
+//    Vue: VueLoaderPlugin (vue-template-complier)
+//    Js： TerserWebpackPlugin
+//    Css: MiniCssExtractPlugin | OptimizeCssPlugin
+//
+//    缓存： 自带缓存 || cache-loader
+//    抽离： dll => optimization.split 功能提取node_module => 提取开发目录公共内容
+//    拆分:  vue 多利用 router 的异步组件 +  代码中事件触发 webpack import 的异步引入
+//    多核:  thread-loader || happypack 启用多核打包
+// ]
+// externals： 表示外部引用的模块，一般是CDN引入，webpack 在处理打包时会跳过此模块
+// resolve： {
+//    alias: {'vue': 'vue/dist/vue.esm.min.js'} 别名
+//    extensions: ['.js', '.vue'] 扩展名数组,从左到右顺序查找
+//    modules: ['./src/components', 'node_modules'] 查找第三方模块的顺序，左 => 右，这样可以 'button' 引入components下组件
+// }
 
 // -----------------------------------常用 Loader Plugin 配置说明-----------------------------------------------------
-//
 // 一、Loaders:
 // 1. vue文件处理
 //    1.1 loader
@@ -35,16 +45,14 @@
 //    1.2 vue 内 scss 文件的加载
 // 2. css： 解析/提取/提取目录/压缩：类名混淆
 //    2.1 loader
-//        style-loader: 用于将 css 以内联方式注入到 index.html 的 head 内
+//          vue-loader || mini-css-extract-plugin.loader 代替 style-loader
+//          style-loader: 用于将 css 以内联方式注入到 index.html 的 head 内
 //        css-loader: 处理 css 文件，使其能在 js 文件内引用；可开启sourceMap： true
 //        postcss-loader autoprefixer: css 预处理，为css属性添加前缀；浏览器兼容性处理
 //        sass-loader node-sass： 用于处理 sass 文件
 //    2.2 plugin
-//        单独提取出css
-//          webpack1~3 使用 extract-text-webpack-plugin
-//          webpack4 之后改用 mini-css-extract-plugin
-//        压缩 css 文件
-//          optimize-css-assets-webpack-plugin
+//        单独提取出css  mini-css-extract-plugin
+//        压缩 css 文件  optimize-css-assets-webpack-plugin
 // 3. js： 解析/提取/提取目录/压缩
 //       3.1 loader： babel--> Q5
 //       3.2 plugin
@@ -83,25 +91,7 @@
 //
 
 
-// -----------------------------------其他常用配置说明 -----------------------------
-// mode： development || production
-// devtool：source-map 的种类
-// entry
-// output
-// devServer: 本地服务，可配置解决跨域，三种常用方式
-//
-// optimization： { splitChunks： {}}
-// module: {
-//    noParse: /jquery/ // 不解析 jquery 的依赖库，节省时间
-//    rules: []
-// }
-// plugin: []
-// externals： 表示外部引用的模块，一般是CDN引入，webpack 在处理打包时会跳过此模块
-// resolve： {
-//    alias: {'vue': 'vue/dist/vue.esm.min.js'} 别名
-//    extensions: ['.js', '.vue'] 扩展名数组,从左到右顺序查找
-//    modules: ['./src/components', 'node_modules'] 查找第三方模块的顺序，左 => 右，这样可以 'button' 引入components下组件
-// }
+
 
 
 

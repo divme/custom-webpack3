@@ -8,6 +8,6 @@ components.keys().forEach((key) => {
     // const name = formatName(key.replace(/^\.\//, '').replace(/\.\w+$/, ''))
     // 带路径的，去掉路径
     const arr = key.split('/')
-    const name = formatName(arr[arr.length - 1].replace(/\.\w+$/, ''))
+    const name = formatName(arr[arr.length - 2].replace(/\.\w+$/, ''))
     Vue.component(name, config.default || config )
 })

@@ -10,7 +10,9 @@
 
 
         <div class="main" v-if="iscockpit">
-            <iam-vue/>
+          <button @click="clickbtn">点击</button>
+<!--          <z-message>是的是的</z-message>-->
+
             <router-link to="/container">驾驶舱omo</router-link>
             <router-link to="/timedata">2015年财务分析</router-link>
             <router-link to="/ranking">2015年营业收入机构排名</router-link>
@@ -52,6 +54,7 @@
 			}
 		},
         created() {
+          debugger
             const that = this
             console.log(123)
         },
@@ -60,6 +63,9 @@
         },
         methods:{
             ...mapMutations(['changeActive']),
+          clickbtn() {
+            this.$zmessage({title: '您点击了自定义弹窗'})
+          },
             cockpit(){
                  this.$store.commit('changeActive', 0)
              },

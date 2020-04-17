@@ -1,19 +1,24 @@
 import Vue from "vue";
 import VueRouter from 'vue-router'
 
+import Home from '@/Home.vue'
+
 Vue.use(VueRouter)
 
 const modules = require.context('./modules', false, /\.js$/)
 let routeArr = []
 modules.keys().forEach((key) => {
     const cur = modules(key)
-    routeArr = routeArr.concat(cur.default)
+    debugger;
+    routeArr = routeArr.concat(cur.default || cur)
 })
 
 const routes = [
+    // ...routeArr,
     {
         path: '/',
-        component: () => import('@/Home.vue')
+        component: () => import('@/entry.vue'),
+        children: routeArr
     },
     {
         path: '/404',
@@ -22,8 +27,7 @@ const routes = [
     {
         path: '*',
         redirect: '/404'
-    },
-    ...routeArr
+    }
 ]
 
 
@@ -35,7 +39,7 @@ const router = new VueRouter({
 
 // 路由级别权限控制
 router.beforeEach((to, from, next) => {
-
+    next()
 })
 router.afterEach(() => {
     console.log('router.afterEach', 'dondsdse')
