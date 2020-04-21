@@ -14,7 +14,7 @@
 // __filename: 总是返回所在的 js 的绝对路径
 // process.cwd(): 总是返回运行 node 命令时所在的文件夹的绝对路径
 // path.resolve('./') 返回绝对路径；如果本身不是绝对路径，就根据执行命令的工作目录确定绝对路径，所以path.resolve最好直接返回绝对路径；
-// 在require（）中时例外，总是所在文件的相对路径；
+//    在require（）中时例外，总是所在文件的相对路径；
 // 2、 当前问题
 //    2.1. uglify-webpack-plugin 报错： es6 语法不解析？
 //         webpack-parallel-uglify-plugin: 利用webpack内置uglify功能开启多线程打包，没看出来

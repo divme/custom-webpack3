@@ -28,7 +28,7 @@ export default {
       this.updateModel(val);
     }
 	},
-	created() {
+	mounted() {
     this.updateModel();
 	},
 	methods: {

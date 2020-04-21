@@ -37,35 +37,61 @@ const HardSourceWebpackPlugin = require("hard-source-webpack-plugin")
 
 process.traceDeprecation = true
 const devServer = {
-    contentBase: path.join(__dirname, 'build'),
+    contentBase: path.join(__dirname, 'runtime'),
     host: 'localhost',
-    port: 8082,
+    port: 8555,
     compress: true
 }
 webpackConfig = {
+    // mode: 'development',
+    devtool: "cheap-module-eval-source-map",
     entry:{
         build: "./src/entry.js",
         vendors: ['vue', 'echarts', 'v-charts']
     },
     output: {
-        path: path.resolve(__dirname, 'build'),
+        path: path.resolve(__dirname, 'dist'),
         filename: 'src/[name].[hash].js'
     },
-    devtool: "cheap-module-eval-source-map",
     cache: true,
     devServer,
+    node:{
+        fs: 'empty',
+        net:'empty',
+        tls:"empty",
+        child_process: 'empty'
+    },
+    // 解析模块的规则，查找模块范围，文件别名
+    resolve: {
+        extensions: ['.js', '.vue',  '.json'],  //自动查找类型扩展名
+        modules: [path.resolve(__dirname, "src"), 'node_modules'], // 模块查找范围
+        alias: { // 别名
+            'vue$': 'vue/dist/vue.js',
+            '@': path.resolve(__dirname, './src'),
+            'components': path.resolve(__dirname, './components')
+        }
+    },
+    // 表示外部引用模块，不需要打包
+    externals: {
+        Vue: 'vue/dist/vue.js'
+    },
+    // loader
     module:{
         rules: [
             // vue loader
             {
                 test: /\.vue$/,
-                loader: 'vue-loader',
-                options: {
-                    loaders: {
-                        scss: 'vue-style-loader!css-loader!sass-loader',
-                        sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
+                use: [
+                    {
+                        loader: 'vue-loader',
+                        options: {
+                            loaders: {
+                                scss: 'vue-style-loader!css-loader!sass-loader',
+                                sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
+                            }
+                        }
                     }
-                }
+                ]
             },
 
             // css loader type2： css/scss 一个配置，但是没单独提取，加了兼容性处理
@@ -232,29 +258,7 @@ webpackConfig = {
             // },
         ]
     },
-    node:{
-        fs: 'empty',
-        net:'empty',
-        tls:"empty",
-        child_process: 'empty'
-    },
-    resolve: {
-        extensions: ['.js', '.vue',  '.json'],
-        modules: [path.resolve(__dirname, "src"), 'node_modules'],
-        alias: {
-            'vue$': 'vue/dist/vue.js',
-            '@': path.resolve(__dirname, './src'),
-            'components': path.resolve(__dirname, './components')
-        }
-    },
-    resolveLoader: {
-        alias: {
-            // 'scss-loader': 'sass-loader'
-        },
-    },
-    externals: {
-        Vue: 'vue/dist/vue.js'
-    },
+    // 插件
     plugins:[
         // 自动清空打包目录
         new CleanWebpackPlugin(),
@@ -292,7 +296,7 @@ webpackConfig = {
         // 结合webpack自带得压缩插件多线程压缩
         // 这个也严重影响打包/热更得速度
         // new webpackUglifyJsPlugin({
-        //     cacheDir: '.cache/',
+        //     cacheDir: './node_modules/uglifycache/',
         //     uglifyJS:{
         //         output: {
         //             comments: false
@@ -320,4 +324,7 @@ webpackConfig = {
 // build 时显化打包性能
 const smp = new SpeedMeasurePlugin();
 module.exports = smp.wrap(webpackConfig);
+// 不显化性能指标
+// module.exports = webpackConfig;
+
 
