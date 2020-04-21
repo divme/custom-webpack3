@@ -9,16 +9,15 @@ const modules = require.context('./modules', false, /\.js$/)
 let routeArr = []
 modules.keys().forEach((key) => {
     const cur = modules(key)
-    debugger;
     routeArr = routeArr.concat(cur.default || cur)
 })
 
 const routes = [
-    // ...routeArr,
+    ...routeArr,
     {
         path: '/',
-        component: () => import('@/entry.vue'),
-        children: routeArr
+        component: () => import('@/Home.vue')
+        // children: routeArr
     },
     {
         path: '/404',
