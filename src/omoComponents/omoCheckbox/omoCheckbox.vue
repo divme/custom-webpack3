@@ -8,7 +8,6 @@
 		<input
 			v-if="group"
 			type="checkbox"
-			:checked="checked"
 			:value="value"
 			v-model="model"
 			@change="onchange"

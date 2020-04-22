@@ -67,7 +67,6 @@ export default {
       this.checked = this.label === this.value;
     },
     updateRadioGroup(val) {
-      debugger;
       this.checked = this.label === val;
     }
   }

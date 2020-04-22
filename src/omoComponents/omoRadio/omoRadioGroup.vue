@@ -26,7 +26,6 @@ export default {
     },
     update() {
       // this.val = this.value;
-	    debugger;
       this.broadcast('oRadio', 'updateRadioGroup', this.value);
     }
   }
