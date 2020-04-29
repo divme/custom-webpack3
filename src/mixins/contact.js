@@ -5,7 +5,7 @@ export default {
             this.$children.forEach(child => {
                 const name = child.$options.name
                 if (name === childName) {
-                    console.log(name)
+                    // console.log(name)
                     child.$emit.apply(child, [eventName, params])
                 } else {
                     that.broadcast.call(child, childName, eventName, params)

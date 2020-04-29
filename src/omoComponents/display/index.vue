@@ -25,8 +25,11 @@ export default {
     }
 	},
 	watch: {
-    code() {
-      this.debounce(this.update);
+    code:{
+      immediate: true,
+      handler() {
+        this.debounce(this.update);
+      }
     }
 	},
   beforeDestroy () {
@@ -46,7 +49,7 @@ export default {
       if (this.timer) {
         clearTimeout(this.timer);
       }
-	    this.timer = setTimeout(func, 2000);
+	    this.timer = setTimeout(func, 600);
     },
 		// 拆解 template script style 部分
 		getSource(type) {
@@ -82,7 +85,7 @@ export default {
 
         if (this.style !== '') {
           this.id = this.randomStr();
-          const style = document.createElement('link');
+          const style = document.createElement('style');
           style.type = 'text/css';
           style.id = this.id;
           style.innerHTML = this.style;

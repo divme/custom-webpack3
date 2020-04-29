@@ -38,7 +38,10 @@ const HardSourceWebpackPlugin = require("hard-source-webpack-plugin")
 process.traceDeprecation = true
 const devServer = {
     contentBase: path.join(__dirname, 'runtime'),
-    host: 'localhost',
+    // host: 'localhost',
+    // host: '10.73.32.141',
+    host: '0.0.0.0',
+    // host: '192.168.0.168',
     port: 8555,
     compress: true
 }
