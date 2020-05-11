@@ -16,7 +16,16 @@ export default {
   name: 'oAlert',
   data () {
     return {
-      notices: [],
+      notices: [
+	      // {
+		    //   name: 'notice',
+		    //   content: 'I am zongqilin'
+	      // },
+        // {
+        //   name: 'notice2',
+        //   content: 'I am chenmouyun'
+        // }
+      ],
 	    defaultDuration: 2000
     }
   },
@@ -36,12 +45,12 @@ export default {
 	    setTimeout(() => {
 	      this.remove(name);
 	    }, options.duration)
+    },
+    remove(name) {
+      const index = this.notices.findIndex((item) => item.name === name);
+      if (index > -1) this.notices.splice(index, 1)
     }
-  },
-	remove(name) {
-		const index = this.notices.findIndex((item) => item.name === name);
-		if (index > -1) this.notices.splice(index, 1)
-	}
+  }
 }
 </script>
 <style>

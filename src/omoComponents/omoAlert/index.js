@@ -2,28 +2,50 @@ import Alert from './alert.vue'
 import Vue from 'vue';
 
 let instance;
-console.log('Alert', Alert);
-function Instance() {
+function createInstance(options) {
   if (instance) return instance;
-  // 1. 直接new
+  const props = options || {};
+
+  // 1. 直接 new
   // instance = new Vue(Alert);
 
-  // 2. render 方式
-  instance = new Vue({
-    render(h) {
-      return h(Alert)
-    }
-  })
-
-  // 3.
+  // 2. extend 方式
   //  const extend = Vue.extend(Alert);
   //  instance = new extend()
 
+  // 3. render 方式
+  const vueInstance = new Vue({
+    render(h) {
+      return h(Alert, {
+        props
+      })
+    }
+  });
 
-  const component = instance.$mount();
+  console.log('1:', vueInstance)
+  const component = vueInstance.$mount();
+
+  console.log('2:', vueInstance.$children[0])
   document.body.appendChild(component.$el);
 
-  console.log('instance:', instance)
-  console.log('instance child:', instance.$children[0])
+  console.log('3:', vueInstance.$children[0])
+  const alert = vueInstance.$children[0];
+  // alert.add(options);
+
+  // console.log('vueInstance:', vueInstance);
+  // console.log('vueInstance child:', vueInstance.$children[0]);
+
+  instance = {
+    add(options) {
+      alert.add(options)
+    }
+  }
+  return instance;
 }
-Instance()
+
+export default function add(options) {
+  // Alert.Instance(options)
+  const cur = createInstance();
+  cur.add(options);
+}
+

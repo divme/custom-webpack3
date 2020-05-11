@@ -1,4 +1,3 @@
-
 const install = (Vue, options) => {
 
 }

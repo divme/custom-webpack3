@@ -7,7 +7,11 @@
 			:checked="checked"
 			@change="change"
 		/>
-		<slot></slot>
+<!--		<template v-for="n in 3">-->
+			<slot name="zong"></slot>
+			<slot name="yu"></slot>
+		  <slot name="zong"></slot>
+<!--		</template>-->
 	</label>
 </template>
 
