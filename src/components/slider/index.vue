@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'Bar',
+  name: 'Slider',
   props: {
     value: {
       type: [Number, String],

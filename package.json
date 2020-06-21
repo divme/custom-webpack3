@@ -3,6 +3,10 @@
     "version": "1.0.0",
     "description": "my common config",
     "main": "index.js",
+    "bin": {
+        "fileCopy": "bin/copy.js",
+        "kkk": "bin/help.js"
+    },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "nodeserver": "node node-server.js",

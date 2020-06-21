@@ -6,22 +6,23 @@ import Vcharts from 'v-charts'
 
 import Entry from './entry.vue'
 // import Home from './Home.vue'
+
 // 全局注册组件
 import './components'
 import "./style/reset.scss"
 
-import '@/omoComponents/components'
+import '@/omoui/components'
 
 // js 方式  与 插件式使用组件
-import omoMessage from '@/omoComponents/omoMessage/command'
-import zMessage from '@/omoComponents/omoMessage/install'
+import omoMessage from '@/omoui/omoMessage/command'
+import zMessage from '@/omoui/omoMessage/install'
 
 // mixins: 事件广播
 import Mixin from '@/mixins/contact'
 
 // 引入函数式调用组件
 // 方式一： 导出的是个方法，直接挂载到原型上
-import alert from '@/omoComponents/omoAlert';
+import alert from '@/omoui/omoAlert';
 Vue.prototype.$alert = alert;
 
 // 方式二：直接引入就自动调用，没人这么用
