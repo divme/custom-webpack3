@@ -29,7 +29,7 @@
     "devDependencies": {
         "async-validator": "^3.2.4",
         "autoprefixer": "^9.7.2",
-        "axios": "^0.19.0",
+        "axios": "^0.21.1",
         "babel-core": "^6.0.0",
         "babel-loader": "^6.0.0",
         "babel-plugin-transform-runtime": "^6.0.0",
